@@ -1,7 +1,6 @@
 const { inspect } = require("node:util");
 
 const color = {
-	// Foreground colors
 	red: "\x1b[31m",
 	orange: "\x1b[38;5;202m",
 	yellow: "\x1b[33m",
@@ -10,33 +9,6 @@ const color = {
 	pink: "\x1b[38;5;213m",
 	torquise: "\x1b[38;5;45m",
 	purple: "\x1b[38;5;57m",
-	cyan: "\x1b[36m",
-	white: "\x1b[37m",
-	black: "\x1b[30m",
-	magenta: "\x1b[35m",
-	
-	// Background colors (auto-bold + white text)
-	bgRed: "\x1b[41m\x1b[1m\x1b[37m",
-	bgOrange: "\x1b[48;5;202m\x1b[1m\x1b[37m",
-	bgYellow: "\x1b[43m\x1b[1m\x1b[37m",
-	bgGreen: "\x1b[42m\x1b[1m\x1b[37m",
-	bgBlue: "\x1b[44m\x1b[1m\x1b[37m",
-	bgPink: "\x1b[48;5;213m\x1b[1m\x1b[37m",
-	bgCyan: "\x1b[46m\x1b[1m\x1b[37m",
-	bgWhite: "\x1b[47m\x1b[1m\x1b[30m",
-	bgBlack: "\x1b[40m\x1b[1m\x1b[37m",
-	bgMagenta: "\x1b[45m\x1b[1m\x1b[37m",
-	bgPurple: "\x1b[48;5;57m\x1b[1m\x1b[37m",
-	
-	// Text styles
-	bold: "\x1b[1m",
-	dim: "\x1b[2m",
-	italic: "\x1b[3m",
-	underline: "\x1b[4m",
-	blink: "\x1b[5m",
-	reverse: "\x1b[7m",
-	
-	// Reset
 	reset: "\x1b[0m",
 };
 
@@ -51,7 +23,7 @@ function getTimestamp() {
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-function write(message = "", prefix = "", colors = true) {
+function write(message = "", prefix = "", colors = true, addReset = false) {
 	const properties = inspect(message, { depth: 3, colors: Boolean(colors && typeof message !== "string") });
 
 	const regex = /^\s*["'`](.*)["'`]\s*\+?$/gm;
@@ -65,6 +37,9 @@ function write(message = "", prefix = "", colors = true) {
 			console.log(line);
 		}
 	}
+	if (addReset) {
+		process.stdout.write(color.reset);
+	}
 }
 
 function info(message) {
@@ -76,7 +51,7 @@ function warn(message) {
 }
 
 function error(message) {
-	return write(message, `${color.red}[${getTimestamp()}] `, false);
+	return write(message, `${color.red}[${getTimestamp()}] `, false, true);
 }
 
 function success(message) {
