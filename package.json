@@ -1,0 +1,23 @@
+{
+  "name": "fix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:nodemon": "nodemon src/index.js",
+    "setup-env": "node src/scripts/setupEnvFile.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "axios": "^1.7.7",
+    "discord.js": "14.25.1",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "mongoose": "^6.0.12",
+    "path": "^0.12.7"
+  }
+}
