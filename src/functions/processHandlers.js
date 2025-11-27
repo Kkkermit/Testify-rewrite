@@ -33,9 +33,9 @@ module.exports = (db) => {
 	});
 };
 
-const client = require("../index");
+const client = require("@src/index");
 
-client.logs = require("../utils");
+client.logs = require("@utils");
 
 function error(message) {
 	client.logs.error(`[ERROR] ${message}`);

@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { color, getTimestamp } = require("../utils");
+const { color, getTimestamp } = require("@utils");
 
 module.exports = (client) => {
 	client.prefixCommands = async (eventFile, path) => {

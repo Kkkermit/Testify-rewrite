@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 
 function folderLoader(client) {
 
-    client.logs.success(`[EVENTS] Loaded ${client.eventNames().length} events.`);
-
     if (mongoose.connect) {
         client.logs.success('[DATABASE] Connected to MongoDB successfully.');
 
@@ -29,11 +27,13 @@ function folderLoader(client) {
         });
     };
     
-    const triggerFolder = path.join(__dirname, '../../triggers');
     const scriptsFolder = path.join(__dirname, '../../scripts');
     
-    loadFolder('triggers', triggerFolder);
     loadFolder('scripts', scriptsFolder);
+    
+    setTimeout(() => {
+        client.logs.success(`[EVENTS] Loaded ${client.eventNames().length} events.`);
+    }, 0);
 };
 
 module.exports = folderLoader;

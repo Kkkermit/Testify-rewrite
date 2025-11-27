@@ -11,7 +11,6 @@ module.exports = {
         };
 
         function setStatus() {
-            client.logs.success(`[STATUS] ${client.user.username}'s status loaded as ${client.config.status}.`);
             client.user.setStatus(client.config.status);
         };
     },

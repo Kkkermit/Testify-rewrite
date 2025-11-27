@@ -1,10 +1,8 @@
 const { Events } = require('discord.js');
-const config = require('../../config');
+const config = require('@config');
 const mongoose = require('mongoose');
-const utils = require('../../utils');
-const asciiText = require('../../lib/asciiText/asciiText.js')
-
-const { folderLoader } = utils;
+const { folderLoader } = require('@utils');
+const { asciiText } = require('@lib');
 const mongodbURL = process.env.mongodb;
 
 module.exports = {

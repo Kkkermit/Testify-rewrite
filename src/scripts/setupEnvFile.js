@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
-const { color, getTimestamp } = require('../utils');
+const { color, getTimestamp } = require('@utils');
 
 const rl = readline.createInterface({
     input: process.stdin,

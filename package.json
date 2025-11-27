@@ -17,7 +17,19 @@
     "discord.js": "14.25.1",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
+    "module-alias": "2.2.3",
     "mongoose": "^6.0.12",
     "path": "^0.12.7"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@src": "src",
+    "@utils": "src/utils",
+    "@config": "src/config.js",
+    "@commands": "src/commands",
+    "@events": "src/events",
+    "@functions": "src/functions",
+    "@schemas": "src/schemas",
+    "@lib": "src/lib"
   }
 }

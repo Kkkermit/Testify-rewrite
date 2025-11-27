@@ -1,5 +1,5 @@
 function asciiText(client) {
-    const { color, getTimestamp } = require('../../utils');
+    const { color, getTimestamp } = require('@utils');
 
     console.log(`${color.pink}[${getTimestamp()}] ========================================================================================================= ${color.reset}`);
     console.log(`${color.pink}[${getTimestamp()}] ██████╗ ███████╗██╗   ██╗    ██████╗ ██╗   ██╗    ██╗  ██╗██╗  ██╗███████╗██████╗ ███╗   ███╗██╗████████╗ ${color.reset}`);

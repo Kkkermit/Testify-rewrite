@@ -1,7 +1,7 @@
 const { REST } = require("@discordjs/rest");
 const { Routes } = require('discord.js');
 const fs = require('fs');
-const { color, getTimestamp } = require('../utils');
+const { color, getTimestamp } = require('@utils');
 
 const clientId = process.env.clientid; 
 if (!clientId) {

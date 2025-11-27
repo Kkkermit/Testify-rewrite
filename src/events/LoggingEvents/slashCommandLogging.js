@@ -1,5 +1,5 @@
 const { Events, EmbedBuilder } = require("discord.js");
-const { color, getTimestamp } = require("../../utils");
+const { color, getTimestamp } = require("@utils");
 
 module.exports = {
 	name: Events.InteractionCreate,
