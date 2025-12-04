@@ -31,14 +31,12 @@ async function setupEnvironment() {
 
     const botToken = await askRequiredQuestion(`${color.yellow}[${getTimestamp()}]${color.reset} [SETUP_ENV] ${color.red}[REQUIRED]${color.reset} Please enter your bot token: `);
     const clientId = await askRequiredQuestion(`${color.yellow}[${getTimestamp()}]${color.reset} [SETUP_ENV] ${color.red}[REQUIRED]${color.reset} Please enter your client ID: `);
-    const guildId = await askQuestion(`${color.yellow}[${getTimestamp()}]${color.reset} [SETUP_ENV] ${color.yellow}[NOT-REQUIRED]${color.reset} Please enter your guild ID: `);
     const devId = await askRequiredQuestion(`${color.yellow}[${getTimestamp()}]${color.reset} [SETUP_ENV] ${color.red}[REQUIRED]${color.reset} Please enter your developer ID: `);
     const mongoDb = await askQuestion(`${color.yellow}[${getTimestamp()}]${color.reset} [SETUP_ENV] ${color.yellow}[NOT-REQUIRED]${color.reset} Please enter your MongoDB connection string: `);
 
     const envContent = `
 token=${botToken}
 clientid=${clientId}
-guildid=${guildId}
 devid=${devId}
 mongodb=${mongoDb}
 `;

@@ -20,7 +20,7 @@
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
     "module-alias": "2.2.3",
-    "mongoose": "^6.0.12",
+    "mongoose": "9.0.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

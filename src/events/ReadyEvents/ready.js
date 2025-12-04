@@ -16,9 +16,6 @@ module.exports = {
             try {
                 mongoose.set("strictQuery", false);
                 await mongoose.connect(mongodbURL, {
-                    keepAlive: true,
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true,
                     serverSelectionTimeoutMS: 10000,
                 });
             } catch (err) {

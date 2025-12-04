@@ -5,94 +5,158 @@
 // ██████╔╝███████╗ ╚████╔╝     ██████╔╝   ██║       ██║  ██╗██║  ██╗███████╗██║  ██║██║ ╚═╝ ██║██║   ██║   
 // ╚═════╝ ╚══════╝  ╚═══╝      ╚═════╝    ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝   ╚═╝   
 
-// Developed by: Kkermit. All rights reserved. (2024)
+// Developed by: Kkermit. All rights reserved. (2025)
 // MIT License
 
-// Enable module aliases
+// ==================== Dependencies ====================
 require('module-alias/register');
-const { Client, GatewayIntentBits, Collection, Partials } = require(`discord.js`);
-const fs = require('fs');
-const config = require('@config');
-const { color, getTimestamp } = require('@utils');
-const { checkVersion } = require('@lib')
-
-// Current Repo Version //
-
-const currentVersion = `${config.botVersion}`;
-
-let client;
-try {
-    client = new Client({ 
-        intents: [
-            GatewayIntentBits.Guilds, 
-            GatewayIntentBits.GuildMessages, 
-            GatewayIntentBits.MessageContent, 
-            GatewayIntentBits.GuildMembers, 
-            GatewayIntentBits.GuildPresences, 
-            GatewayIntentBits.GuildIntegrations, 
-            GatewayIntentBits.GuildWebhooks, 
-            GatewayIntentBits.GuildMessageReactions,
-            GatewayIntentBits.MessageContent, 
-            GatewayIntentBits.DirectMessages, 
-            GatewayIntentBits.DirectMessageTyping, 
-            GatewayIntentBits.GuildModeration, 
-            GatewayIntentBits.GuildVoiceStates,
-            GatewayIntentBits.GuildWebhooks, 
-            GatewayIntentBits.AutoModerationConfiguration,
-            GatewayIntentBits.GuildScheduledEvents, 
-            GatewayIntentBits.GuildMessageTyping, 
-            GatewayIntentBits.AutoModerationExecution, 
-        ],  
-
-        partials: [
-            Partials.GuildMember, 
-            Partials.Channel,
-            Partials.GuildScheduledEvent,
-            Partials.Message,
-            Partials.Reaction, 
-            Partials.ThreadMember, 
-            Partials.User
-        ],
-    }); 
-} catch (error) {
-    console.error(`${color.red}[${getTimestamp()}]${color.reset} [ERROR] Error while creating the client. \n${color.red}[${getTimestamp()}]${color.reset} [ERROR]`, error);
-};
-
-client.logs = require('@utils');
-client.config = require('@config');
-
-require('./functions/processHandlers')();
-
-client.commands = new Collection();
-client.pcommands = new Collection();
-client.aliases = new Collection();
-
 require('dotenv').config();
 
-const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
-const eventFiles = fs.readdirSync("./src/events")
-const pcommandFolders = fs.readdirSync('./src/prefix');
-const commandFolders = fs.readdirSync("./src/commands");
+const { Client, Collection } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
+const config = require('@config');
+const { color, getTimestamp, intents, partials } = require('@utils');
+const { checkVersion } = require('@lib');
 
-const token = process.env.token;
-if (!token) {
-    console.log(`${color.red}[${getTimestamp()}]${color.reset} [TOKEN] No token provided. Please provide a valid token in the .env file. ${config.botName} cannot launch without a token.`);
-    return;
+// ==================== Constants ====================
+const PATHS = {
+    FUNCTIONS: path.join(__dirname, 'functions'),
+    EVENTS: path.join(__dirname, 'events'),
+    COMMANDS: path.join(__dirname, 'commands'),
+    PREFIX: path.join(__dirname, 'prefix'),
+    PROCESS_HANDLERS: path.join(__dirname, 'functions', 'processHandlers'),
+    BOOT_MODE: path.join(__dirname, 'scripts', 'bootMode.js')
+};
+
+// ==================== Client Initialization ====================
+/**
+ * Creates and configures the Discord client
+ * @returns {Client} The configured Discord client
+ */
+function createClient() {
+    try {
+        const client = new Client({
+            intents: [
+                ...intents
+            ],
+            partials: [
+                ...partials
+            ]
+        });
+        
+        // Attach utilities and config
+        client.logs = require('@utils');
+        client.config = config;
+        
+        // Initialize collections
+        client.commands = new Collection();
+        client.pcommands = new Collection();
+        client.aliases = new Collection();
+        
+        return client;
+    } catch (error) {
+        console.error(
+            `${color.red}[${getTimestamp()}]${color.reset} [ERROR] Failed to create Discord client.`,
+            `\n${color.red}[${getTimestamp()}]${color.reset} [ERROR]`,
+            error
+        );
+        process.exit(1);
+    }
 }
 
-(async () => {
-    await checkVersion(currentVersion);
-    
-    // Load boot mode after version check
-    require('./scripts/bootMode.js')();
-
-    for (file of functions) {
-        require(`./functions/${file}`)(client);
+/**
+ * Validates the bot token
+ * @param {string} token - The Discord bot token
+ * @returns {boolean} Whether the token is valid
+ */
+function validateToken(token) {
+    if (!token) {
+        console.log(
+            `${color.red}[${getTimestamp()}]${color.reset} [TOKEN] No token provided.`,
+            `Please provide a valid token in the .env file.`,
+            `${config.botName} cannot launch without a token.`
+        );
+        return false;
     }
-    client.handleEvents(eventFiles, "./src/events");
-    client.handleCommands(commandFolders, "./src/commands");
-    client.prefixCommands(pcommandFolders, './src/prefix');
-    client.login(token).catch((error) => {
-        console.error(`${color.red}[${getTimestamp()}]${color.reset} [LOGIN] Error while logging into ${config.botName}. Check if your token is correct or double check your also using the correct intents. \n${color.red}[${getTimestamp()}]${color.reset} [LOGIN]`, error);
-    });
-})();
+    return true;
+}
+
+/**
+ * Loads all function handlers
+ * @param {Client} client - The Discord client
+ */
+function loadFunctionHandlers(client) {
+    const functions = fs
+        .readdirSync(PATHS.FUNCTIONS)
+        .filter(file => file.endsWith('.js'));
+    
+    for (const file of functions) {
+        require(`${PATHS.FUNCTIONS}/${file}`)(client);
+    }
+}
+
+/**
+ * Loads all handlers (events, commands, prefix commands)
+ * @param {Client} client - The Discord client
+ */
+function loadHandlers(client) {
+    const eventFiles = fs.readdirSync(PATHS.EVENTS);
+    const commandFolders = fs.readdirSync(PATHS.COMMANDS);
+    const pcommandFolders = fs.readdirSync(PATHS.PREFIX);
+    
+    client.handleEvents(eventFiles, PATHS.EVENTS);
+    client.handleCommands(commandFolders, PATHS.COMMANDS);
+    client.prefixCommands(pcommandFolders, PATHS.PREFIX);
+}
+
+/**
+ * Logs the bot into Discord
+ * @param {Client} client - The Discord client
+ * @param {string} token - The Discord bot token
+ */
+async function loginClient(client, token) {
+    try {
+        await client.login(token);
+    } catch (error) {
+        console.error(
+            `${color.red}[${getTimestamp()}]${color.reset} [LOGIN] Failed to login to ${config.botName}.`,
+            `\nCheck if your token is correct and that you're using the correct intents.`,
+            `\n${color.red}[${getTimestamp()}]${color.reset} [LOGIN]`,
+            error
+        );
+        process.exit(1);
+    }
+}
+
+// ==================== Main Initialization ====================
+/**
+ * Main initialization function
+ */
+async function initialize() {
+    const token = process.env.token;
+    if (!validateToken(token)) {
+        process.exit(1);
+    }
+
+    const client = createClient();
+    
+    await checkVersion(config.botVersion);
+
+    require(PATHS.PROCESS_HANDLERS)();
+    require(PATHS.BOOT_MODE)();
+    
+    loadFunctionHandlers(client);
+    loadHandlers(client);
+
+    await loginClient(client, token);
+}
+
+// Start the bot
+initialize().catch(error => {
+    console.error(
+        `${color.red}[${getTimestamp()}]${color.reset} [FATAL] Unhandled error during initialization:`,
+        error
+    );
+    process.exit(1);
+});

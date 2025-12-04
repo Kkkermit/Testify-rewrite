@@ -12,6 +12,7 @@ const {
 	color,
 	getTimestamp,
 } = require("./logging/logs");
+const { intents, partials } = require("./clientOptions");
 
 module.exports = {
 	folderLoader,
@@ -28,4 +29,6 @@ module.exports = {
 	purple,
 	color,
 	getTimestamp,
+	intents,
+	partials
 };

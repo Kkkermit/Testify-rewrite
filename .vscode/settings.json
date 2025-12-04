@@ -1,7 +1,4 @@
 {
-    "cSpell.words": [
-        "discordbotv",
-        "logcchannelid",
-        "torquise"
-    ]
+	"cSpell.words": ["discordbotv", "logcchannelid", "torquise"],
+	"postman.settings.dotenv-detection-notification-visibility": false
 }
