@@ -9,7 +9,6 @@
 // MIT License
 
 // ==================== Dependencies ====================
-require('module-alias/register');
 require('dotenv').config();
 
 const { Client, Collection } = require('discord.js');

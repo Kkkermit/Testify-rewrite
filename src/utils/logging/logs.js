@@ -12,6 +12,12 @@ const color = {
 	reset: "\x1b[0m",
 };
 
+const textEffects = {
+	bold: "\x1b[1m",
+	underline: "\x1b[4m",
+	reset: "\x1b[0m",
+}
+
 function getTimestamp() {
 	const date = new Date();
 	const year = date.getFullYear();
@@ -74,4 +80,4 @@ function purple(message) {
 	return write(message, `${color.purple}[${getTimestamp()}]${color.reset} `);
 }
 
-module.exports = { write, info, warn, error, success, debug, logging, torquise, purple, color, getTimestamp };
+module.exports = { write, info, warn, error, success, debug, logging, torquise, purple, color, getTimestamp, textEffects };

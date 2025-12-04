@@ -1,4 +1,4 @@
-const folderLoader = require("./logging/folderLoader");
+const folderLoader = require("./logging/folderLogging");
 const {
 	write,
 	info,
