@@ -24,6 +24,7 @@ const PATHS = {
     EVENTS: path.join(__dirname, 'events'),
     COMMANDS: path.join(__dirname, 'commands'),
     PREFIX: path.join(__dirname, 'prefix'),
+    BUTTONS: path.join(__dirname, 'buttons'),
     PROCESS_HANDLERS: path.join(__dirname, 'functions', 'processHandlers'),
     BOOT_MODE: path.join(__dirname, 'scripts', 'bootMode.js')
 };
@@ -99,17 +100,19 @@ function loadFunctionHandlers(client) {
 }
 
 /**
- * Loads all handlers (events, commands, prefix commands)
+ * Loads all handlers (events, commands, prefix commands, buttons)
  * @param {Client} client - The Discord client
  */
 function loadHandlers(client) {
     const eventFiles = fs.readdirSync(PATHS.EVENTS);
     const commandFolders = fs.readdirSync(PATHS.COMMANDS);
     const pcommandFolders = fs.readdirSync(PATHS.PREFIX);
+    const buttonFolders = fs.readdirSync(PATHS.BUTTONS);
     
     client.handleEvents(eventFiles, PATHS.EVENTS);
     client.handleCommands(commandFolders, PATHS.COMMANDS);
     client.prefixCommands(pcommandFolders, PATHS.PREFIX);
+    client.handleButtons(buttonFolders, PATHS.BUTTONS);
 }
 
 /**
