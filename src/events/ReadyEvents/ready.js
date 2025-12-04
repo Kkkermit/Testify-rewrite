@@ -3,12 +3,15 @@ const config = require('@config');
 const mongoose = require('mongoose');
 const { folderLoader } = require('@utils');
 const { asciiText } = require('@lib');
+
 const mongodbURL = process.env.mongodb;
 
 module.exports = {
     name: Events.ClientReady,
     once: true,
     async execute(client) {
+
+        const botStartTime = client.botStartTime
 
         if (!mongodbURL) {
             client.logs.warn('[DATABASE] No MongoDB URL has been provided. Skipping database connection.');
@@ -25,7 +28,7 @@ module.exports = {
         }
 
         folderLoader(client);
-        asciiText(client);
+        asciiText(client, botStartTime);
         require('events').EventEmitter.setMaxListeners = config.eventListeners;
     },
 };

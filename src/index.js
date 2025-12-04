@@ -35,6 +35,8 @@ const PATHS = {
  * @returns {Client} The configured Discord client
  */
 function createClient() {
+    const botStartTime = Date.now();
+    
     try {
         const client = new Client({
             intents: [
@@ -48,6 +50,7 @@ function createClient() {
         // Attach utilities and config
         client.logs = require('@utils');
         client.config = config;
+        client.botStartTime = botStartTime;
         
         // Initialize collections
         client.commands = new Collection();
