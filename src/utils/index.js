@@ -12,7 +12,10 @@ const {
 	color,
 	getTimestamp,
 } = require("./logging/logs");
+const { logCommandError } = require("./logging/errorLogging")
 const { intents, partials } = require("./clientOptions");
+const { addSuffix } = require("./helpers/addSuffix");
+const { addBadges } = require("./helpers/discordBadges");
 
 module.exports = {
 	folderLoader,
@@ -30,5 +33,8 @@ module.exports = {
 	color,
 	getTimestamp,
 	intents,
-	partials
+	partials,
+	addSuffix,
+	addBadges,
+	logCommandError
 };

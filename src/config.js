@@ -14,6 +14,7 @@ module.exports = {
 	// Logging Channels //
 	slashCommandLoggingChannel: "1129094438669520956",
 	prefixCommandLoggingChannel: "1129094438669520956",
+	commandErrorChannel: "",
 
 	// Emojis //
 	arrowEmoji: "⤵",

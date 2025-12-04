@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
-const { color, getTimestamp } = require("@utils");
+const { color, getTimestamp, logCommandError } = require("@utils");
 
 module.exports = {
 	name: "interactionCreate",
@@ -21,6 +21,8 @@ module.exports = {
 				}[${getTimestamp()}] [INTERACTION_CREATE]`,
 				error,
 			);
+
+			await logCommandError(error, interaction, client);
 
 			const embed = new EmbedBuilder()
 				.setColor("Red")
