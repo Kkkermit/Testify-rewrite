@@ -16,6 +16,7 @@ const { logCommandError } = require("./logging/errorLogging")
 const { intents, partials } = require("./clientOptions");
 const { addSuffix } = require("./helpers/addSuffix");
 const { addBadges } = require("./helpers/discordBadges");
+const { getMessagePrefix } = require("./helpers/prefixHelper");
 
 module.exports = {
 	folderLoader,
@@ -30,11 +31,10 @@ module.exports = {
 	logging,
 	torquise,
 	purple,
-	color,
-	getTimestamp,
 	intents,
 	partials,
 	addSuffix,
 	addBadges,
-	logCommandError
+	logCommandError,
+	getMessagePrefix
 };

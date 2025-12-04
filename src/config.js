@@ -3,7 +3,7 @@ module.exports = {
 	botVersion: "v3.0.1",
 
 	// Bot Information //
-	prefix: "?",
+	defaultPrefix: "?",
 	status: "dnd",
 	eventListeners: 100,
 	embedColor: "Blurple",
@@ -15,6 +15,7 @@ module.exports = {
 	slashCommandLoggingChannel: "1129094438669520956",
 	prefixCommandLoggingChannel: "1129094438669520956",
 	commandErrorChannel: "",
+	dmLoggingChannel: "",
 
 	// Emojis //
 	arrowEmoji: "⤵",

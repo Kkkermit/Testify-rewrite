@@ -1,15 +1,18 @@
 const { EmbedBuilder } = require("discord.js");
-const { color, getTimestamp } = require("@utils");
+const { color, getTimestamp, getMessagePrefix } = require("@utils");
 
 module.exports = {
 	name: "messageCreate",
 	async execute(message, client) {
 		if (message.author.bot || !message.guild || message.system || message.webhookId) return;
 
-		if (!message.content.toLowerCase().startsWith(client.config.prefix)) {
+		const prefix = await getMessagePrefix(message, client);
+
+		if (!message.content.toLowerCase().startsWith(prefix)) {
 			return;
 		}
-		const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
+
+		const args = message.content.slice(prefix.length).trim().split(/ +/);
 
 		let cmd = args.shift().toLowerCase();
 		if (cmd.length === 0) return;
@@ -23,7 +26,7 @@ module.exports = {
 					.setColor("Red")
 					.setTitle(`${client.user.username} prefix system ${client.config.arrowEmoji}`)
 					.setDescription(
-						`> The command you tried **does not exist**. \n> To see **all** commands, use \`\`${client.config.prefix}help\`\``,
+						`> The command you tried **does not exist**. \n> To see **all** commands, use \`\`${prefix}help\`\``,
 					);
 
 				return message.reply({ embeds: [embed], ephemeral: true });
