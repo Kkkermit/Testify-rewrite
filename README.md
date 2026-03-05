@@ -6,9 +6,9 @@
             ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝        ╚═╝    -->
 
 
-<h1 align="center"><strong>
+<h1 align="center"><img src="https://cdn3.emoji.gg/emojis/2668_Siren.gif" width="64px" height="64px" alt="Siren"><strong>
 This repository is a re-write of the original Testify Discord bot located here - https://github.com/Kkkermit/Testify/
-</strong></h1>
+</strong><img src="https://cdn3.emoji.gg/emojis/2668_Siren.gif" width="64px" height="64px" alt="Siren"></h1>
 
 <h2 align="center"><strong>
 This is to solve on going technical debt that has built up on the original codebase
