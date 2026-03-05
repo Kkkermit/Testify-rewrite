@@ -26,6 +26,4 @@ module.exports = {
 	logging,
 	torquise,
 	purple,
-	color,
-	getTimestamp,
 };

@@ -6,7 +6,7 @@ module.exports = {
 
         setInterval(() => {
 
-            let activities = [
+            const activities = [
                 { type: 'Watching', name: `${client.commands.size} slash commands!`},
                 { type: 'Watching', name: `${client.pcommands.size} prefix commands!`},
                 { type: 'Watching', name: `${client.guilds.cache.size} servers!`},

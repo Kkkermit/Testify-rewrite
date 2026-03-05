@@ -11,7 +11,7 @@ module.exports = {
 		}
 		const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
 
-		let cmd = args.shift().toLowerCase();
+		const cmd = args.shift().toLowerCase();
 		if (cmd.length === 0) return;
 
 		let command = client.pcommands.get(cmd);

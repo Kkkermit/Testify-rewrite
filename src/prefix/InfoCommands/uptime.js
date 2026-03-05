@@ -6,14 +6,14 @@ module.exports = {
     async execute(message, client, args) {
 
         let totalSeconds = (client.uptime / 1000);
-        let days = Math.floor(totalSeconds / 86400);
+        const days = Math.floor(totalSeconds / 86400);
         totalSeconds %= 86400;
-        let hours = Math.floor(totalSeconds / 3600);
+        const hours = Math.floor(totalSeconds / 3600);
         totalSeconds %= 3600;
-        let minutes = Math.floor(totalSeconds / 60);
-        let seconds = Math.floor(totalSeconds % 60);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.floor(totalSeconds % 60);
 
-        let uptime = `**${days}**d **${hours}**h **${minutes}**m **${seconds}**s`;
+        const uptime = `**${days}**d **${hours}**h **${minutes}**m **${seconds}**s`;
 
         const uptimeEmbed = new EmbedBuilder()
         .setAuthor({ name: `${client.user.username} uptime ${client.config.devBy}`})

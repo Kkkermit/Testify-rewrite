@@ -9,7 +9,9 @@ const rl = readline.createInterface({
 });
 
 function askQuestion(query) {
-    return new Promise(resolve => rl.question(query, resolve));
+    return new Promise((resolve) => {
+        rl.question(query, resolve);
+    });
 }
 
 async function askRequiredQuestion(query) {

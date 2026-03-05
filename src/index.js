@@ -86,7 +86,7 @@ if (!token) {
     // Load boot mode after version check
     require('./scripts/bootMode.js')();
 
-    for (file of functions) {
+    for (const file of functions) {
         require(`./functions/${file}`)(client);
     }
     client.handleEvents(eventFiles, "./src/events");

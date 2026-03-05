@@ -8,11 +8,6 @@ async function getLatestVersion() {
 		const latestVersion = response.data.tag_name;
 		return latestVersion;
 	} catch (error) {
-		console.error(
-			`${color.red}[${getTimestamp()}] [LATEST_VERSION] Error while retrieving the latest version. No release found. ${
-				color.reset
-			}`,
-		);
 		return null;
 	}
 }

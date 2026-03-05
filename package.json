@@ -8,7 +8,9 @@
     "start:nodemon": "nodemon src/index.js",
     "prod": "node src/index.js",
     "dev": "cross-env NODE_ENV=development node src/index.js",
-    "setup-env": "node src/scripts/setupEnvFile.js"
+    "setup-env": "node src/scripts/setupEnvFile.js",
+    "lint": "node -r module-alias/register src/scripts/lintRunner.js",
+    "lint:fix": "node -r module-alias/register src/scripts/lintRunner.js --fix"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +26,10 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "cross-env": "7.0.3"
+    "@eslint/js": "10.0.1",
+    "cross-env": "7.0.3",
+    "eslint": "10.0.2",
+    "globals": "17.4.0"
   },
   "_moduleAliases": {
     "@root": ".",
