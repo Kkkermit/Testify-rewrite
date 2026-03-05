@@ -5,6 +5,13 @@
             ██║   ███████╗███████║   ██║   ██║██║        ██║
             ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚═╝╚═╝        ╚═╝    -->
 
+
+<h1 align="center"><strong>
+This repository is a re-write of the original Testify Discord bot located here - https://github.com/Kkkermit/Testify/
+</strong></h1>
+
+<p align="center">This is to solve on going technical debt that has built up on the original codebase</p>
+
 <img align="center" alt="Nub Bot banner" src="https://i.postimg.cc/v87R8PSx/test.png">
 
 <p align="center">
