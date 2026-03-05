@@ -1,67 +1,71 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder } = require('discord.js');
-
-/**
- * Helper to build the bot info stats object
- */
-function getBotStats(client) {
-    const serverCount = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0);
-    let totalSeconds = client.uptime / 1000;
-    const days = Math.floor(totalSeconds / 86400);
-    totalSeconds %= 86400;
-    const hours = Math.floor(totalSeconds / 3600);
-    totalSeconds %= 3600;
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = Math.floor(totalSeconds % 60);
-    const uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    return { serverCount, uptime };
-}
-
-/**
- * Helper to build the bot info embed
- */
-function buildEmbed(client, stats) {
-    return new EmbedBuilder()
-        .setColor(client.config.embedColor)
-        .setTitle(`__${client.user.username} Bot Information__`)
-        .setAuthor({ name: `Bot Information ${client.config.devBy}`, iconURL: client.user.displayAvatarURL({ dynamic: true }) })
-        .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-        .setFooter({ text: `Most up-to-date information about ${client.user.username}` })
-        .setTimestamp()
-        .addFields({ name: 'Developer', value: `> \`${client.config.dev}\`` })
-        .addFields({ name: 'Servers Count', value: `> \`${client.guilds.cache.size}\`` })
-        .addFields({ name: 'Members Count', value: `> \`${stats.serverCount}\`` })
-        .addFields({ name: 'Prefix', value: `> \`${client.config.prefix}\`` })
-        .addFields({ name: 'Commands', value: `> \`${client.pcommands.size}\`` })
-        .addFields({ name: 'Aliases', value: `> \`${client.aliases.size}\`` })
-        .addFields({ name: 'Slash Commands', value: `> \`${client.commands.size}\`` })
-        .addFields({ name: 'Latency', value: `> \`${Math.round(client.ws.ping)}ms\`` })
-        .addFields({ name: 'Uptime', value: `> \`\`\`${stats.uptime}\`\`\`` });
-}
+const { EmbedBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder } = require("discord.js");
+const { getBotStats } = require("@utils");
 
 module.exports = {
-    name: "bot-info",
-    aliases: ["bi", "botinfo"],
-    async execute(message, client) {
+	name: "bot-info",
+	aliases: ["bi", "botinfo"],
+	async execute(message, client) {
+		const refresh = new ActionRowBuilder().addComponents(
+			new ButtonBuilder().setCustomId("refresh").setLabel("Refresh").setStyle(ButtonStyle.Primary),
+		);
 
-        const refresh = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('refresh')
-                    .setLabel('Refresh')
-                    .setStyle(ButtonStyle.Primary)
-            );
+		const stats = getBotStats(client);
 
-        const sentMessage = await message.reply({ embeds: [buildEmbed(client, getBotStats(client))], components: [refresh] });
+		const botInfoEmbed = new EmbedBuilder()
+			.setColor(client.config.embedColor)
+			.setTitle(`__${stats.username} Bot Information__`)
+			.setAuthor({
+				name: `Bot Information ${client.config.devBy}`,
+				iconURL: client.user.displayAvatarURL({ dynamic: true }),
+			})
+			.setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+			.setFooter({ text: `Most up-to-date information about ${stats.username}` })
+			.setTimestamp()
+			.addFields({ name: "Developer", value: `> \`${stats.developer}\`` })
+			.addFields({ name: "Version", value: `> \`${stats.version}\`` })
+			.addFields({ name: "Servers", value: `> \`${stats.serverCount}\`` })
+			.addFields({ name: "Members", value: `> \`${stats.memberCount}\`` })
+			.addFields({ name: "Prefix", value: `> \`${stats.prefix}\`` })
+			.addFields({ name: "Commands", value: `> \`${stats.prefixCommandCount}\`` })
+			.addFields({ name: "Aliases", value: `> \`${stats.aliasCount}\`` })
+			.addFields({ name: "Slash Commands", value: `> \`${stats.slashCommandCount}\`` })
+			.addFields({ name: "Latency", value: `> \`${stats.ping}ms\`` })
+			.addFields({ name: "Uptime", value: `> ${stats.uptime}` });
 
-        const collector = sentMessage.createMessageComponentCollector();
-        collector.on('collect', async (interaction) => {
-            if (interaction.customId === 'refresh') {
-                try {
-                    await interaction.update({ embeds: [buildEmbed(client, getBotStats(client))], components: [refresh] });
-                } catch (error) {
-                    client.logs.error(`[BOT_INFO] Error generating refresh.`, error);
-                }
-            }
-        });
-    }
+		const sentMessage = await message.reply({ embeds: [botInfoEmbed], components: [refresh] });
+
+		const collector = sentMessage.createMessageComponentCollector();
+		collector.on("collect", async (interaction) => {
+			if (interaction.customId === "refresh") {
+				try {
+					const refreshedStats = getBotStats(client);
+
+					const refreshedEmbed = new EmbedBuilder()
+						.setColor(client.config.embedColor)
+						.setTitle(`__${refreshedStats.username} Bot Information__`)
+						.setAuthor({
+							name: `Bot Information ${client.config.devBy}`,
+							iconURL: client.user.displayAvatarURL({ dynamic: true }),
+						})
+						.setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
+						.setFooter({ text: `Most up-to-date information about ${refreshedStats.username}` })
+						.setTimestamp()
+						.addFields({ name: "Developer", value: `> \`${refreshedStats.developer}\`` })
+						.addFields({ name: "Version", value: `> \`${refreshedStats.version}\`` })
+						.addFields({ name: "Servers", value: `> \`${refreshedStats.serverCount}\`` })
+						.addFields({ name: "Members", value: `> \`${refreshedStats.memberCount}\`` })
+						.addFields({ name: "Prefix", value: `> \`${refreshedStats.prefix}\`` })
+						.addFields({ name: "Commands", value: `> \`${refreshedStats.prefixCommandCount}\`` })
+						.addFields({ name: "Aliases", value: `> \`${refreshedStats.aliasCount}\`` })
+						.addFields({ name: "Slash Commands", value: `> \`${refreshedStats.slashCommandCount}\`` })
+						.addFields({ name: "Latency", value: `> \`${refreshedStats.ping}ms\`` })
+						.addFields({ name: "Uptime", value: `> ${refreshedStats.uptime}` });
+
+					await interaction.update({ embeds: [refreshedEmbed], components: [refresh] });
+				} catch (error) {
+					client.logs.error(`[BOT_INFO] Error generating refresh.`, error);
+				}
+			}
+		});
+	},
 };

@@ -15,6 +15,7 @@ const {
 const { gatewayIntentBits, partials} = require("./intents")
 const { addSuffix } = require("./helpers/addSuffix")
 const { addBadges } = require("./helpers/discordBadges")
+const { getBotStats } = require("./helpers/botStats")
 
 module.exports = {
 	folderLoader,
@@ -32,5 +33,6 @@ module.exports = {
 	gatewayIntentBits,
 	partials,
 	addSuffix,
-	addBadges
+	addBadges,
+	getBotStats
 };
