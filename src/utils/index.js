@@ -13,6 +13,8 @@ const {
 	getTimestamp,
 } = require("./logging/logs");
 const { gatewayIntentBits, partials} = require("./intents")
+const { addSuffix } = require("./helpers/addSuffix")
+const { addBadges } = require("./helpers/discordBadges")
 
 module.exports = {
 	folderLoader,
@@ -28,5 +30,7 @@ module.exports = {
 	torquise,
 	purple,
 	gatewayIntentBits,
-	partials
+	partials,
+	addSuffix,
+	addBadges
 };

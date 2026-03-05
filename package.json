@@ -11,6 +11,7 @@
     "setup-env": "node src/scripts/setupEnvFile.js",
     "lint": "node -r module-alias/register src/scripts/lintRunner.js",
     "lint:fix": "node -r module-alias/register src/scripts/lintRunner.js --fix",
+    "commit": "node -r module-alias/register src/scripts/commitRunner.js",
     "prepare": "husky"
   },
   "keywords": [],

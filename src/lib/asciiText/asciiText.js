@@ -22,4 +22,22 @@ function asciiText(client) {
     console.log(`${thin}\n`);
 }
 
-module.exports = asciiText;
+function asciiTextCommitRunner() {
+    const { color } = require('@utils');
+
+    const sep  = `${color.blue}${'═'.repeat(115)}${color.reset}`;
+    const thin = `${color.blue}${'─'.repeat(115)}${color.reset}`;
+
+    console.log(`\n${sep}`);
+    console.log(`${color.blue}  ██████╗ ██████╗ ███╗   ███╗███╗   ███╗██╗████████╗    ██████╗ ██╗   ██╗███╗   ██╗███╗   ██╗███████╗██████╗ ${color.reset}`);
+    console.log(`${color.blue} ██╔════╝██╔═══██╗████╗ ████║████╗ ████║██║╚══██╔══╝    ██╔══██╗██║   ██║████╗  ██║████╗  ██║██╔════╝██╔══██╗${color.reset}`);
+    console.log(`${color.blue} ██║     ██║   ██║██╔████╔██║██╔████╔██║██║   ██║       ██████╔╝██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██████╔╝${color.reset}`);
+    console.log(`${color.blue} ██║     ██║   ██║██║╚██╔╝██║██║╚██╔╝██║██║   ██║       ██╔══██╗██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██╔══██╗${color.reset}`);
+    console.log(`${color.blue} ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║██║   ██║       ██║  ██║╚██████╔╝██║ ╚████║██║ ╚████║███████╗██║  ██║${color.reset}`);
+    console.log(`${color.blue}  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝╚═╝   ╚═╝       ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝${color.reset}`);
+    console.log(`${sep}`);
+    console.log(`${color.blue}  Interactive commit runner — follow the prompts below to create a conventional commit${color.reset}`);
+    console.log(`${thin}\n`);
+}
+
+module.exports = { asciiText, asciiTextCommitRunner };
