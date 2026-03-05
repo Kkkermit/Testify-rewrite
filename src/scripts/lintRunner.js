@@ -73,11 +73,11 @@ async function runLint() {
     console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${'─'.repeat(60)}`);
 
     if (totalErrors === 0 && totalWarnings === 0) {
-        console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${color.green}✓ No errors or warnings found across all ${totalFiles} files!${color.reset}`);
+        console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${color.green}✓ No errors or warnings found across all ${totalFiles} files!`);
     } else if (totalErrors === 0) {
-        console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${color.yellow}⚠ Lint passed with ${totalWarnings} warning(s).${color.reset}`);
+        console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${color.yellow}⚠ Lint passed with ${totalWarnings} warning(s).`);
     } else {
-        console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${color.red}✗ Lint failed with ${totalErrors} error(s) and ${totalWarnings} warning(s).${color.reset}`);
+        console.log(`${color.blue}[${getTimestamp()}]${color.reset} [LINT] ${color.red}✗ Lint failed with ${totalErrors} error(s) and ${totalWarnings} warning(s).`);
     }
 
     if (totalErrors > 0) process.exit(1);
