@@ -4,7 +4,7 @@ const { color, getTimestamp } = require("@utils");
 
 async function getLatestVersion() {
 	try {
-		const response = await axios.get("https://api.github.com/repos/Kkkermit/DiscordBotV14-template/releases/latest");
+		const response = await axios.get(config.githubRelease);
 		const latestVersion = response.data.tag_name;
 		return latestVersion;
 	} catch (error) {

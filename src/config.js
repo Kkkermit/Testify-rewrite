@@ -2,6 +2,7 @@ module.exports = {
 
     // Bot Version //
     botVersion: "v3.0.1",
+    githubRelease: "https://api.github.com/repos/Kkkermit/DiscordBotV14-template/releases/latest",
     
     // Bot Information //
     prefix: '?',
