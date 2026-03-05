@@ -33,25 +33,23 @@ module.exports = (client) => {
             }
         }
 
-        console.log(`${color.blue}[${getTimestamp()}] ${color.reset}[SLASH_COMMANDS] Found ${client.commands.size} SlashCommands.`);
+        console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Slash commands loaded ${color.purple}(${client.commands.size} commands)${color.reset}`);
 
-        const rest = new REST({
-            version: '10'
-        }).setToken(process.env.token);
+        const rest = new REST({ version: '10' }).setToken(process.env.token);
 
         (async () => {
             try {
-                console.log(`${color.blue}[${getTimestamp()}] ${color.reset}[SLASH_COMMANDS] Started refreshing application (/) commands.`);
+                console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.yellow}↻${color.reset} Registering slash commands with Discord...`);
 
                 await rest.put(
                     Routes.applicationCommands(clientId), {
                         body: client.commandArray
                     },
                 ).catch((error) => {
-                    console.error(`${color.red}[${getTimestamp()}] [SLASH_COMMANDS] Error while refreshing application (/) commands. \n${color.red}[${getTimestamp()}] [SLASH_COMMANDS] Check if your clientID is correct and matches your bots token:`, error);
+                    console.error(`${color.red}[${getTimestamp()}] [SLASH_COMMANDS] Failed to register commands. Check your clientID matches your bot token:${color.reset}`, error);
                 });
 
-                console.log(`${color.blue}[${getTimestamp()}] ${color.reset}[SLASH_COMMANDS] Successfully reloaded application (/) commands.`);
+                console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Slash commands registered with Discord successfully`);
             } catch (error) {
                 console.error(error);
             }

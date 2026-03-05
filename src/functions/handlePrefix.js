@@ -23,20 +23,6 @@ module.exports = (client) => {
 			}
 		}
 
-		console.log(`${color.blue}[${getTimestamp()}] ${color.reset}[PREFIX_COMMANDS] Started refreshing prefix (?) commands.`);
-
-		console.log(
-			`${color.blue}[${getTimestamp()}] ${color.reset}[PREFIX_COMMANDS] Found ${
-				client.pcommands.size
-			} PrefixCommands.`,
-		);
-
-		(async () => {
-			try {
-				console.log(`${color.blue}[${getTimestamp()}] ${color.reset}[PREFIX_COMMANDS] Successfully reloaded prefix (?) commands.`);
-			} catch (error) {
-				console.error(error);
-			}
-		})();
+		console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Prefix commands loaded ${color.purple}(${client.pcommands.size} commands, ${client.aliases.size} aliases)${color.reset}`);
 	};
 };

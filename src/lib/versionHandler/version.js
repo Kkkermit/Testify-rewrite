@@ -14,21 +14,15 @@ async function getLatestVersion() {
 
 async function checkVersion(currentVersion) {
 	const latestVersion = await getLatestVersion();
-	if (currentVersion < latestVersion) {
-		console.log(
-			`${
-				color.torquise
-			}[${getTimestamp()}] [LATEST_VERSION] Attention, a new update is available, please install it - https://github.com/Kkkermit/DiscordBotV14-template ${
-				color.reset
-			}`,
-		);
+	const sep = `${color.pink}${'─'.repeat(80)}${color.reset}`;
+
+	console.log(`\n${sep}`);
+	if (latestVersion && currentVersion < latestVersion) {
+		console.log(`${color.yellow}[${getTimestamp()}]${color.reset} ${color.yellow}⚠ Update available!${color.reset} ${color.torquise}${latestVersion}${color.reset} is out → https://github.com/Kkkermit/DiscordBotV14-template`);
 	} else {
-		console.log(
-			`${color.torquise}[${getTimestamp()}] [LATEST_VERSION] You have the latest version of the code. (${
-				config.botVersion
-			}) ${color.reset}`,
-		);
+		console.log(`${color.torquise}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Version ${color.torquise}${config.botVersion}${color.reset} — you're up to date!`);
 	}
+	console.log(`${sep}\n`);
 }
 
 module.exports = { getLatestVersion, checkVersion };
