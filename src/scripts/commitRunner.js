@@ -90,13 +90,12 @@ const commit = async () => {
             console.error(`${logError} ${color.yellow}Tip: make sure your files are staged with ${color.green}git add <file>${color.yellow} or ${color.green}git add .${color.reset}`);
             return;
         }
-        if (stderr) {
-            console.error(`${logError} ${color.red}${stderr}${color.reset}`);
-            return;
-        }
+
+        const output = (stdout + stderr).trim();
+
         console.log(`\n${thin}`);
         console.log(`${log} ${color.green}✓ Commit successful!${color.reset}`);
-        console.log(`${log}   ${color.torquise}${stdout.trim()}${color.reset}`);
+        if (output) console.log(`${log}   ${color.torquise}${output}${color.reset}`);
         console.log(`${thin}\n`);
     });
 
