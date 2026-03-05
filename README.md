@@ -10,7 +10,9 @@
 This repository is a re-write of the original Testify Discord bot located here - https://github.com/Kkkermit/Testify/
 </strong></h1>
 
-<p align="center">This is to solve on going technical debt that has built up on the original codebase</p>
+<h2 align="center"><strong>
+This is to solve on going technical debt that has built up on the original codebase
+</strong></h2>
 
 <img align="center" alt="Nub Bot banner" src="https://i.postimg.cc/v87R8PSx/test.png">
 
