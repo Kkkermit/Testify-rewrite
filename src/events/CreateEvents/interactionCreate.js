@@ -1,8 +1,8 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, Events } = require("discord.js");
 const { color, getTimestamp } = require("@utils");
 
 module.exports = {
-	name: "interactionCreate",
+	name: Events.InteractionCreate,
 	async execute(interaction, client) {
 		if (!interaction.isCommand()) return;
 

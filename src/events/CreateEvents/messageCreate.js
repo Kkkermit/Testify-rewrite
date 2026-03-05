@@ -1,8 +1,8 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, Events } = require("discord.js");
 const { color, getTimestamp } = require("@utils");
 
 module.exports = {
-	name: "messageCreate",
+	name: Events.MessageCreate,
 	async execute(message, client) {
 		if (message.author.bot || !message.guild || message.system || message.webhookId) return;
 
