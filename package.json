@@ -10,7 +10,8 @@
     "dev": "cross-env NODE_ENV=development node src/index.js",
     "setup-env": "node src/scripts/setupEnvFile.js",
     "lint": "node -r module-alias/register src/scripts/lintRunner.js",
-    "lint:fix": "node -r module-alias/register src/scripts/lintRunner.js --fix"
+    "lint:fix": "node -r module-alias/register src/scripts/lintRunner.js --fix",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +30,8 @@
     "@eslint/js": "10.0.1",
     "cross-env": "7.0.3",
     "eslint": "10.0.2",
-    "globals": "17.4.0"
+    "globals": "17.4.0",
+    "husky": "9.1.7"
   },
   "_moduleAliases": {
     "@root": ".",

@@ -70,9 +70,9 @@ client.aliases = new Collection();
 require('dotenv').config();
 
 const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
-const eventFiles = fs.readdirSync("./src/events")
-const pcommandFolders = fs.readdirSync('./src/prefix');
-const commandFolders = fs.readdirSync("./src/commands");
+const eventFiles = fs.readdirSync("./src/events");
+const commandFolders = fs.readdirSync("./src/commands/SlashCommands");
+const pcommandFolders = fs.readdirSync("./src/commands/PrefixCommands");
 
 const token = process.env.token;
 if (!token) {
@@ -91,7 +91,7 @@ if (!token) {
     }
     client.handleEvents(eventFiles, "./src/events");
     client.handleCommands(commandFolders, "./src/commands");
-    client.prefixCommands(pcommandFolders, './src/prefix');
+    client.prefixCommands(pcommandFolders, "./src/commands");
     client.login(token).catch((error) => {
         console.error(`${color.red}[${getTimestamp()}]${color.reset} [LOGIN] Error while logging into ${config.botName}. Check if your token is correct or double check your also using the correct intents. \n${color.red}[${getTimestamp()}]${color.reset} [LOGIN]`, error);
     });

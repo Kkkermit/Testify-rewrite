@@ -45,7 +45,7 @@ devid=${devId}
 mongodb=${mongoDb}
 `;
 
-    fs.writeFileSync(envPath, envContent.trim() + '\n');
+    fs.writeFileSync(envPath, `${envContent.trim()}\n`);
 
     console.log(`${color.green}[${getTimestamp()}]${color.reset} [SETUP_ENV_SUCCESS] Environment variables have been added to ${envFile}`);
     rl.close();

@@ -13,9 +13,9 @@ module.exports = (client) => {
     client.handleCommands = async (commandFolders, path) => {
         client.commandArray = [];
         for (const folder of commandFolders) {
-            const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
+            const commandFiles = fs.readdirSync(`${path}/SlashCommands/${folder}`).filter(file => file.endsWith('.js'));
             for (const file of commandFiles) {
-                const command = require(`../commands/${folder}/${file}`);
+                const command = require(`../commands/SlashCommands/${folder}/${file}`);
                 client.commands.set(command.data.name, command);
                 client.commandArray.push(command.data.toJSON());
 

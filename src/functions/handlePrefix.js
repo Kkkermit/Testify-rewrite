@@ -2,12 +2,12 @@ const fs = require("fs");
 const { color, getTimestamp } = require("@utils");
 
 module.exports = (client) => {
-	client.prefixCommands = async (eventFile, path) => {
-		for (const folder of eventFile) {
-			const commands = fs.readdirSync(`./src/prefix/${folder}`).filter((file) => file.endsWith(".js"));
+	client.prefixCommands = async (prefixFolders, path) => {
+		for (const folder of prefixFolders) {
+			const commands = fs.readdirSync(`${path}/PrefixCommands/${folder}`).filter((file) => file.endsWith(".js"));
 
 			for (const file of commands) {
-				const command = require(`../prefix/${folder}/${file}`);
+				const command = require(`../commands/PrefixCommands/${folder}/${file}`);
 
 				if (command.name) {
 					client.pcommands.set(command.name, command);
