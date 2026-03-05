@@ -5,7 +5,7 @@ function getTimeBetween(now, future) {
     const minutes = Math.floor((diff % 3600) / 60);
     const seconds = diff % 60;
     
-    let result = [];
+    const result = [];
     if (hours > 0) result.push(`${hours}h`);
     if (minutes > 0) result.push(`${minutes}m`);
     if (seconds > 0 || result.length === 0) result.push(`${seconds}s`);
