@@ -12,6 +12,7 @@ const {
 	color,
 	getTimestamp,
 } = require("./logging/logs");
+const { gatewayIntentBits, partials} = require("./intents")
 
 module.exports = {
 	folderLoader,
@@ -26,4 +27,6 @@ module.exports = {
 	logging,
 	torquise,
 	purple,
+	gatewayIntentBits,
+	partials
 };
