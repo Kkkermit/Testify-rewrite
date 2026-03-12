@@ -1,6 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const { SlashCategory } = require('@utils')
 
 module.exports = {
+    usableInDms: true,
+    category: SlashCategory.COMMUNITY,
     data: new SlashCommandBuilder()
     .setName('test')
     .setDescription('Test command'),

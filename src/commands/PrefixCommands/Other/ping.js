@@ -1,7 +1,10 @@
 const { EmbedBuilder } = require('discord.js'); 
+const { PrefixCategory } = require('@utils');
 
 module.exports = {
     name: 'ping',
+    category: PrefixCategory.OTHER,
+    usableInDms: true,
     async execute(message, client) {
 
         const embed = new EmbedBuilder()

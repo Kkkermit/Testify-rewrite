@@ -1,8 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
+const { PrefixCategory } = require('@utils');
 
 module.exports = {
     name: 'uptime',
     aliases: ['botuptime'],
+    category: PrefixCategory.INFO,
+    usableInDms: true,
     async execute(message, client, args) {
 
         let totalSeconds = (client.uptime / 1000);

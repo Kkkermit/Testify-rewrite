@@ -1,8 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
+const { PrefixCategory } = require('@utils');
 
 module.exports = {
     name: 'help',
     aliases: ['h', 'cmd', 'command'],
+    category: PrefixCategory.COMMUNITY,
+    usableInDms: true,
     async execute(message, client, args) {
 
         message.channel.send({

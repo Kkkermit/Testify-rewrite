@@ -18,6 +18,7 @@ const { addBadges } = require("./helpers/discordBadges")
 const { getBotStats } = require("./helpers/botStats")
 const { checkDmUsability, checkMessageDmUsability } = require("./commandParams/checkDmUsability");
 const { checkUnderDevelopment, checkMessageUnderDevelopment } = require("./commandParams/checkUnderDevelopment");
+const { SlashCategory, PrefixCategory } = require("./helpers/commandCategorys");
 
 module.exports = {
 	folderLoader,
@@ -40,5 +41,7 @@ module.exports = {
 	checkDmUsability,
 	checkMessageDmUsability,
 	checkUnderDevelopment,
-	checkMessageUnderDevelopment
+	checkMessageUnderDevelopment,
+	SlashCategory,
+	PrefixCategory
 };
