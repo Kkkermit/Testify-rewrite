@@ -12,6 +12,7 @@ module.exports = {
         '^@src$': '<rootDir>/src',
         '^@root$': '<rootDir>',
     },
+    setupFilesAfterEnv: ['<rootDir>/tests/setup/schemaSetup.js'],
     clearMocks: true,
     verbose: true,
 };

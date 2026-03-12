@@ -1,15 +1,17 @@
-const { EmbedBuilder, Events } = require("discord.js");
-const { color, getTimestamp, checkMessageDmUsability, checkMessageUnderDevelopment } = require("@utils");
+const { EmbedBuilder, Events, PermissionFlagsBits, MessageFlags } = require("discord.js");
+const { color, getTimestamp, checkMessageDmUsability, checkMessageUnderDevelopment, getGuildPrefix } = require("@utils");
 
 module.exports = {
 	name: Events.MessageCreate,
 	async execute(message, client) {
 		if (message.author.bot || !message.guild || message.system || message.webhookId) return;
 
-		if (!message.content.toLowerCase().startsWith(client.config.prefix)) {
+		const prefix = await getGuildPrefix(message.guild.id);
+
+		if (!message.content.toLowerCase().startsWith(prefix)) {
 			return;
 		}
-		const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
+		const args = message.content.slice(prefix.length).trim().split(/ +/);
 
 		const cmd = args.shift().toLowerCase();
 		if (cmd.length === 0) return;
@@ -23,22 +25,43 @@ module.exports = {
 					.setColor("Red")
 					.setTitle(`${client.user.username} prefix system ${client.config.arrowEmoji}`)
 					.setDescription(
-						`> The command you tried **does not exist**. \n> To see **all** commands, use \`\`${client.config.prefix}help\`\``,
+						`> The command you tried **does not exist**. \n> To see **all** commands, use \`\`${prefix}help\`\``,
 					);
 
 				return message.reply({ embeds: [embed], ephemeral: true });
 			} catch (error) {
 				client.logs.error(`[PREFIX_ERROR] Error sending 'cannot find prefix' embed.`, error);
-				return;
 			}
 		}
 
 		if (!checkMessageDmUsability(command, message)) return;
         if (!checkMessageUnderDevelopment(command, message)) return;
 
+		if (!command) return;
+
 		if (command.args && !args.length) {
 			return message.reply(`You **didn't** provide any \`\`arguments\`\`.`);
 		}
+
+		if (command.permissions && command.permissions.length) {
+            const missingPerms = command.permissions.filter(perm => {
+                if (!message.member.permissions.has(perm)) {
+                    return true;
+                }
+                return false;
+            }).map(perm => {
+                return Object.keys(PermissionFlagsBits).find(p => 
+                    PermissionFlagsBits[p] === perm
+                ).replace(/_/g, ' ').toLowerCase();
+            });
+
+            if (missingPerms.length > 0) {
+                return message.reply({ 
+                    content: client.config.noPerms(missingPerms),
+                    flags: MessageFlags.Ephemeral,
+                });
+            }
+        }
 
 		try {
 			command.execute(message, client, args);

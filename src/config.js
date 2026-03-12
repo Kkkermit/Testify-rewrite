@@ -5,13 +5,21 @@ module.exports = {
     githubRelease: "https://api.github.com/repos/Kkkermit/DiscordBotV14-template/releases/latest",
     
     // Bot Information //
-    prefix: '?',
+    defaultPrefix: '?',
     status: "dnd",
     eventListeners: 100,
-    embedColor: "Blurple",
     dev: "Kkermit",
     devBy: "| Developed by kkermit",
-    noPermsMessage: `You **do not** have the permission to do that!`,
+    noPerms: (missingPerms) => {
+		const formattedPerms = missingPerms
+			.map((perm) => `\`${perm.toString().split("_").join(" ").toLowerCase()}\``)
+			.join(", ");
+		return `You **do not** have the required permissions to use this command!\nMissing Permissions: ${formattedPerms}`;
+	},
+
+    // Embed Colors //
+    embedColor: "Blurple",
+    embedModHard: "Red",
 
     // Logging Channels //
     slashCommandLoggingChannel: "1129094438669520956",

@@ -2,6 +2,12 @@ const { getBotStats } = require('../../../../src/utils/helpers/botStats');
 const config = require('../../../../src/config');
 const { createMockClient } = require('../../../mocks/discordMocks');
 
+jest.mock('../../../../src/utils/helpers/getGuildPrefix', () => ({
+    getGuildPrefix: jest.fn(),
+}));
+
+const { getGuildPrefix } = require('../../../../src/utils/helpers/getGuildPrefix');
+
 describe('getBotStats', () => {
 
     let client;
@@ -21,15 +27,19 @@ describe('getBotStats', () => {
             pcommands: { size: 8 },
             aliases:   { size: 4 },
         });
+
+        getGuildPrefix.mockResolvedValue(config.defaultPrefix);
     });
 
+    afterEach(() => jest.clearAllMocks());
+
     describe('return shape', () => {
-        test('returns an object', () => {
-            expect(typeof getBotStats(client)).toBe('object');
+        test('returns an object', async () => {
+            expect(typeof await getBotStats(client)).toBe('object');
         });
 
-        test('returns all expected keys', () => {
-            const stats = getBotStats(client);
+        test('returns all expected keys', async () => {
+            const stats = await getBotStats(client);
             expect(stats).toHaveProperty('username');
             expect(stats).toHaveProperty('version');
             expect(stats).toHaveProperty('prefix');
@@ -46,95 +56,121 @@ describe('getBotStats', () => {
     });
 
     describe('static config values', () => {
-        test('username comes from client.user.username', () => {
-            expect(getBotStats(client).username).toBe(client.user.username);
+        test('username comes from client.user.username', async () => {
+            expect((await getBotStats(client)).username).toBe(client.user.username);
         });
 
-        test('version comes from config.botVersion', () => {
-            expect(getBotStats(client).version).toBe(config.botVersion);
+        test('version comes from config.botVersion', async () => {
+            expect((await getBotStats(client)).version).toBe(config.botVersion);
         });
 
-        test('prefix comes from config.prefix', () => {
-            expect(getBotStats(client).prefix).toBe(config.prefix);
+        test('prefix comes from config.defaultPrefix', async () => {
+            expect((await getBotStats(client)).prefix).toBe(config.defaultPrefix);
         });
 
-        test('developer comes from config.dev', () => {
-            expect(getBotStats(client).developer).toBe(config.dev);
+        test('developer comes from config.dev', async () => {
+            expect((await getBotStats(client)).developer).toBe(config.dev);
+        });
+    });
+
+    describe('prefix', () => {
+        test('falls back to config.defaultPrefix when no guildId provided', async () => {
+            expect((await getBotStats(client)).prefix).toBe(config.defaultPrefix);
+        });
+
+        test('falls back to config.defaultPrefix when no db record exists', async () => {
+            getGuildPrefix.mockResolvedValue(config.defaultPrefix);
+            expect((await getBotStats(client, '123')).prefix).toBe(config.defaultPrefix);
+        });
+
+        test('falls back to config.defaultPrefix when prefix system is disabled', async () => {
+            getGuildPrefix.mockResolvedValue(config.defaultPrefix);
+            expect((await getBotStats(client, '123')).prefix).toBe(config.defaultPrefix);
+        });
+
+        test('uses custom prefix when prefix system is enabled', async () => {
+            getGuildPrefix.mockResolvedValue('!');
+            expect((await getBotStats(client, '123')).prefix).toBe('!');
+        });
+
+        test('does not query the database when no guildId is passed', async () => {
+            await getBotStats(client);
+            expect(getGuildPrefix).toHaveBeenCalledWith(null);
         });
     });
 
     describe('ping', () => {
-        test('rounds the ping value', () => {
-            expect(getBotStats(client).ping).toBe(43);
+        test('rounds the ping value', async () => {
+            expect((await getBotStats(client)).ping).toBe(43);
         });
 
-        test('ping is a number', () => {
-            expect(typeof getBotStats(client).ping).toBe('number');
+        test('ping is a number', async () => {
+            expect(typeof (await getBotStats(client)).ping).toBe('number');
         });
     });
 
     describe('uptime', () => {
-        test('formats uptime as bold days, hours, minutes, seconds', () => {
-            const { uptime } = getBotStats(client);
+        test('formats uptime as bold days, hours, minutes, seconds', async () => {
+            const { uptime } = await getBotStats(client);
             expect(uptime).toContain('**1**d');
             expect(uptime).toContain('**2**h');
         });
 
-        test('uptime string matches the expected bold format', () => {
-            expect(getBotStats(client).uptime).toMatch(/\*\*\d+\*\*d \*\*\d+\*\*h \*\*\d+\*\*m \*\*\d+\*\*s/);
+        test('uptime string matches the expected bold format', async () => {
+            expect((await getBotStats(client)).uptime).toMatch(/\*\*\d+\*\*d \*\*\d+\*\*h \*\*\d+\*\*m \*\*\d+\*\*s/);
         });
 
-        test('uptimeRaw is the raw client.uptime value', () => {
-            expect(getBotStats(client).uptimeRaw).toBe(client.uptime);
+        test('uptimeRaw is the raw client.uptime value', async () => {
+            expect((await getBotStats(client)).uptimeRaw).toBe(client.uptime);
         });
 
-        test('returns "**0**d **0**h **0**m **0**s" when client.uptime is 0', () => {
+        test('returns "**0**d **0**h **0**m **0**s" when client.uptime is 0', async () => {
             client.uptime = 0;
-            expect(getBotStats(client).uptime).toBe('**0**d **0**h **0**m **0**s');
+            expect((await getBotStats(client)).uptime).toBe('**0**d **0**h **0**m **0**s');
         });
 
-        test('returns "**0**d **0**h **0**m **0**s" when client.uptime is undefined', () => {
+        test('returns "**0**d **0**h **0**m **0**s" when client.uptime is undefined', async () => {
             client.uptime = undefined;
-            expect(getBotStats(client).uptime).toBe('**0**d **0**h **0**m **0**s');
+            expect((await getBotStats(client)).uptime).toBe('**0**d **0**h **0**m **0**s');
         });
     });
 
     describe('guild stats', () => {
-        test('serverCount comes from guilds.cache.size', () => {
-            expect(getBotStats(client).serverCount).toBe(3);
+        test('serverCount comes from guilds.cache.size', async () => {
+            expect((await getBotStats(client)).serverCount).toBe(3);
         });
 
-        test('memberCount comes from guilds.cache.reduce', () => {
-            expect(getBotStats(client).memberCount).toBe(75);
+        test('memberCount comes from guilds.cache.reduce', async () => {
+            expect((await getBotStats(client)).memberCount).toBe(75);
         });
     });
 
     describe('command counts', () => {
-        test('slashCommandCount comes from client.commands.size', () => {
-            expect(getBotStats(client).slashCommandCount).toBe(10);
+        test('slashCommandCount comes from client.commands.size', async () => {
+            expect((await getBotStats(client)).slashCommandCount).toBe(10);
         });
 
-        test('prefixCommandCount comes from client.pcommands.size', () => {
-            expect(getBotStats(client).prefixCommandCount).toBe(8);
+        test('prefixCommandCount comes from client.pcommands.size', async () => {
+            expect((await getBotStats(client)).prefixCommandCount).toBe(8);
         });
 
-        test('aliasCount comes from client.aliases.size', () => {
-            expect(getBotStats(client).aliasCount).toBe(4);
+        test('aliasCount comes from client.aliases.size', async () => {
+            expect((await getBotStats(client)).aliasCount).toBe(4);
         });
 
-        test('defaults to 0 when commands is undefined', () => {
+        test('defaults to 0 when commands is undefined', async () => {
             client.commands = undefined;
-            expect(getBotStats(client).slashCommandCount).toBe(0);
+            expect((await getBotStats(client)).slashCommandCount).toBe(0);
         });
 
-        test('defaults to 0 when pcommands is undefined', () => {
+        test('defaults to 0 when pcommands is undefined', async () => {
             client.pcommands = undefined;
-            expect(getBotStats(client).prefixCommandCount).toBe(0);
+            expect((await getBotStats(client)).prefixCommandCount).toBe(0);
         });
 
-        test('defaults to 0 when aliases is undefined', () => {
+        test('defaults to 0 when aliases is undefined', async () => {
             client.aliases = undefined;
-            expect(getBotStats(client).aliasCount).toBe(0);
+            expect((await getBotStats(client)).aliasCount).toBe(0);
         });
     });
 });

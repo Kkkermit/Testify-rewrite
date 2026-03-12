@@ -1,3 +1,7 @@
+jest.mock('../../../../../src/utils/helpers/getGuildPrefix', () => ({
+    getGuildPrefix: jest.fn().mockResolvedValue('?'),
+}));
+
 const { createMockMessage, createMockClient } = require('../../../../mocks/discordMocks.js');
 const helpCommand = require('../../../../../src/commands/PrefixCommands/Community/help.js');
 

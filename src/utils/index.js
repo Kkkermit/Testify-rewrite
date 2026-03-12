@@ -19,6 +19,7 @@ const { getBotStats } = require("./helpers/botStats")
 const { checkDmUsability, checkMessageDmUsability } = require("./commandParams/checkDmUsability");
 const { checkUnderDevelopment, checkMessageUnderDevelopment } = require("./commandParams/checkUnderDevelopment");
 const { SlashCategory, PrefixCategory } = require("./helpers/commandCategorys");
+const { getGuildPrefix } = require("./helpers/getGuildPrefix");
 
 module.exports = {
 	folderLoader,
@@ -43,5 +44,6 @@ module.exports = {
 	checkUnderDevelopment,
 	checkMessageUnderDevelopment,
 	SlashCategory,
-	PrefixCategory
+	PrefixCategory,
+	getGuildPrefix
 };

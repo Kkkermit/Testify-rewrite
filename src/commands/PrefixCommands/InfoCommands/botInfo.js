@@ -11,7 +11,7 @@ module.exports = {
 			new ButtonBuilder().setCustomId("refresh").setLabel("Refresh").setStyle(ButtonStyle.Primary),
 		);
 
-		const stats = getBotStats(client);
+		const stats = await getBotStats(client);
 
 		const botInfoEmbed = new EmbedBuilder()
 			.setColor(client.config.embedColor)
@@ -40,7 +40,7 @@ module.exports = {
 		collector.on("collect", async (interaction) => {
 			if (interaction.customId === "refresh") {
 				try {
-					const refreshedStats = getBotStats(client);
+					const refreshedStats = await getBotStats(client);
 
 					const refreshedEmbed = new EmbedBuilder()
 						.setColor(client.config.embedColor)

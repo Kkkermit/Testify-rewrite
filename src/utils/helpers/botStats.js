@@ -1,6 +1,7 @@
 const config = require("@config");
+const { getGuildPrefix } = require("./getGuildPrefix");
 
-function getBotStats(client) {
+async function getBotStats(client, guildId = null) {
 	let totalSeconds = (client.uptime || 0) / 1000;
 	const days = Math.floor(totalSeconds / 86400);
 	totalSeconds %= 86400;
@@ -17,10 +18,12 @@ function getBotStats(client) {
 	const prefixCommandCount = client.pcommands?.size ?? 0;
 	const aliasCount = client.aliases?.size ?? 0;
 
+	const prefix = await getGuildPrefix(guildId);
+
 	return {
 		username: client.user.username,
 		version: config.botVersion,
-		prefix: config.prefix,
+		prefix,
 		ping: Math.round(client.ws.ping),
 		uptime,
 		uptimeRaw: client.uptime || 0,

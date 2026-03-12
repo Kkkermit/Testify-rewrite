@@ -1,3 +1,9 @@
+jest.mock('../../../../../src/schemas', () => ({
+    prefixSystem: {
+        findOne: jest.fn().mockResolvedValue(null),
+    },
+}));
+
 const botInfo = require('../../../../../src/commands/PrefixCommands/InfoCommands/botInfo');
 const { createMockMessage, createMockClient } = require('../../../../mocks/discordMocks');
 
@@ -117,7 +123,7 @@ describe('PrefixCommand ?bot-info', () => {
         test('embed contains a Prefix field with the correct prefix', () => {
             const field = embed.data.fields.find(f => f.name === 'Prefix');
             expect(field).toBeDefined();
-            expect(field.value).toContain(client.config.prefix);
+            expect(field.value).toContain(client.config.defaultPrefix);
         });
 
         test('embed contains a Latency field', () => {

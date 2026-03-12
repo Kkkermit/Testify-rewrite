@@ -1,10 +1,10 @@
 const { Events, EmbedBuilder } = require("discord.js");
-const { color, getTimestamp } = require("@utils");
+const { color, getTimestamp, getGuildPrefix } = require("@utils");
 
 module.exports = {
 	name: Events.MessageCreate,
 	async execute(message, client) {
-		const prefix = client.config.prefix;
+		const prefix = await getGuildPrefix(message.guild?.id);
 		if (!message.author.bot && message.content.startsWith(prefix)) {
 			try {
 				const channelId = client.config.prefixCommandLoggingChannel;
