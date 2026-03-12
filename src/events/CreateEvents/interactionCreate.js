@@ -1,5 +1,5 @@
 const { EmbedBuilder, Events } = require("discord.js");
-const { color, getTimestamp } = require("@utils");
+const { color, getTimestamp, checkDmUsability, checkUnderDevelopment } = require("@utils");
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -9,6 +9,9 @@ module.exports = {
 		const command = client.commands.get(interaction.commandName);
 
 		if (!command) return;
+		
+		if (!checkDmUsability(command, interaction)) return;
+        if (!checkUnderDevelopment(command, interaction)) return;
 
 		try {
 			await command.execute(interaction, client);

@@ -1,5 +1,5 @@
 const { EmbedBuilder, Events } = require("discord.js");
-const { color, getTimestamp } = require("@utils");
+const { color, getTimestamp, checkMessageDmUsability, checkMessageUnderDevelopment } = require("@utils");
 
 module.exports = {
 	name: Events.MessageCreate,
@@ -29,10 +29,12 @@ module.exports = {
 				return message.reply({ embeds: [embed], ephemeral: true });
 			} catch (error) {
 				client.logs.error(`[PREFIX_ERROR] Error sending 'cannot find prefix' embed.`, error);
+				return;
 			}
 		}
 
-		if (!command) return;
+		if (!checkMessageDmUsability(command, message)) return;
+        if (!checkMessageUnderDevelopment(command, message)) return;
 
 		if (command.args && !args.length) {
 			return message.reply(`You **didn't** provide any \`\`arguments\`\`.`);
