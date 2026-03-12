@@ -1,5 +1,12 @@
 const { EmbedBuilder, Events, PermissionFlagsBits, MessageFlags } = require("discord.js");
-const { color, getTimestamp, checkDmUsability, checkUnderDevelopment } = require("@utils");
+const {
+	color,
+	getTimestamp,
+	checkDmUsability,
+	checkUnderDevelopment,
+	checkOwnerOnly,
+	checkDevOnly,
+} = require("@utils");
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -12,6 +19,8 @@ module.exports = {
 
 		if (!checkDmUsability(command, interaction)) return;
 		if (!checkUnderDevelopment(command, interaction)) return;
+		if (!checkOwnerOnly(command, interaction)) return;
+		if (!checkDevOnly(command, interaction)) return;
 
 		if (command.permissions && command.permissions.length) {
 			const missingPerms = command.permissions

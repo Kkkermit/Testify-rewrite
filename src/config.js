@@ -9,6 +9,9 @@ module.exports = {
 	eventListeners: 100,
 	dev: "Kkermit",
 	devBy: "| Developed by kkermit",
+	developerIds: ["526853643962679323"],
+
+	// Permission Check //
 	noPerms: (missingPerms) => {
 		const formattedPerms = missingPerms
 			.map((perm) => `\`${perm.toString().split("_").join(" ").toLowerCase()}\``)

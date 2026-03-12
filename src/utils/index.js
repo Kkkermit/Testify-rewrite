@@ -20,6 +20,12 @@ const { checkDmUsability, checkMessageDmUsability } = require("./commandParams/c
 const { checkUnderDevelopment, checkMessageUnderDevelopment } = require("./commandParams/checkUnderDevelopment");
 const { SlashCategory, PrefixCategory } = require("./helpers/commandCategorys");
 const { getGuildPrefix } = require("./helpers/getGuildPrefix");
+const {
+	checkOwnerOnly,
+	checkMessageOwnerOnly,
+	checkDevOnly,
+	checkMessageDevOnly,
+} = require("./commandParams/checkOwnerDeveloperCommands");
 
 module.exports = {
 	folderLoader,
@@ -46,4 +52,8 @@ module.exports = {
 	SlashCategory,
 	PrefixCategory,
 	getGuildPrefix,
+	checkOwnerOnly,
+	checkMessageOwnerOnly,
+	checkDevOnly,
+	checkMessageDevOnly,
 };

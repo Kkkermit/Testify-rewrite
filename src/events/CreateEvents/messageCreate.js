@@ -5,6 +5,8 @@ const {
 	checkMessageDmUsability,
 	checkMessageUnderDevelopment,
 	getGuildPrefix,
+	checkMessageOwnerOnly,
+	checkMessageDevOnly,
 } = require("@utils");
 const { prefixSystem } = require("@schemas");
 
@@ -57,6 +59,8 @@ module.exports = {
 
 		if (!checkMessageDmUsability(command, message)) return;
 		if (!checkMessageUnderDevelopment(command, message)) return;
+		if (!checkMessageOwnerOnly(command, message)) return;
+		if (!checkMessageDevOnly(command, message)) return;
 
 		if (!command) return;
 
