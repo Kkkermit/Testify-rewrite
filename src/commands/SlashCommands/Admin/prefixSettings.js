@@ -194,7 +194,7 @@ module.exports = {
 
 					await interaction.reply({ embeds: [embed3] });
 				} catch (error) {
-					console.error(error);
+					client.logs.error(`[PREFIX_SETTINGS] Error in enable subcommand.`, error);
 					await interaction.reply({
 						content: `Whoops, something went wrong! Please try again.`,
 						flags: MessageFlags.Ephemeral,
@@ -221,7 +221,7 @@ module.exports = {
 						flags: MessageFlags.Ephemeral,
 					});
 				} catch (error) {
-					console.error(error);
+					client.logs.error(`[PREFIX_SETTINGS] Error in disable subcommand.`, error);
 					await interaction.reply({
 						content: `Whoops, something went wrong! Please try again.`,
 						flags: MessageFlags.Ephemeral,
