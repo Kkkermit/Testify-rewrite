@@ -2,8 +2,8 @@
  * Shared Discord mock factory for unit tests.
  * Call createMockInteraction() for slash commands, createMockMessage() for prefix commands.
  * Call createMockSubcommandInteraction() for slash commands that use subcommands.
- *  
- *  
+ *
+ *
  */
 
 const config = require("../../src/config");

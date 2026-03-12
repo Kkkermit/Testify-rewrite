@@ -1,9 +1,9 @@
-const { createMockModel } = require('../mocks/mongooseMocks');
+const { createMockModel } = require("../mocks/mongooseMocks");
 
 const mockSchemas = {
-    prefixSystem: createMockModel(),
+	prefixSystem: createMockModel(),
 };
 
-jest.mock('@schemas', () => mockSchemas);
+jest.mock("@schemas", () => mockSchemas);
 
 global.mockSchemas = mockSchemas;

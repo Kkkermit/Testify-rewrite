@@ -1,5 +1,5 @@
-const prefixSystem = require('./prefixSystem.schema');
+const prefixSystem = require("./prefixSystem.schema");
 
 module.exports = {
-    prefixSystem,
+	prefixSystem,
 };

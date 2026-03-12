@@ -1,58 +1,69 @@
 const { REST } = require("@discordjs/rest");
-const { Routes } = require('discord.js');
-const fs = require('fs');
-const { color, getTimestamp } = require('@utils');
+const { Routes } = require("discord.js");
+const fs = require("fs");
+const { color, getTimestamp } = require("@utils");
 
-const clientId = process.env.clientid; 
+const clientId = process.env.clientid;
 if (!clientId) {
-    console.error(`${color.red}[${getTimestamp()}] [SLASH_COMMANDS] No client ID provided. Please provide a valid client ID in the .env file.`);
-    return;
+	console.error(
+		`${color.red}[${getTimestamp()}] [SLASH_COMMANDS] No client ID provided. Please provide a valid client ID in the .env file.`,
+	);
+	return;
 }
 
 module.exports = (client) => {
-    client.handleCommands = async (commandFolders, path) => {
-        client.commandArray = [];
-        for (const folder of commandFolders) {
-            const commandFiles = fs.readdirSync(`${path}/SlashCommands/${folder}`).filter(file => file.endsWith('.js'));
-            for (const file of commandFiles) {
-                const command = require(`../commands/SlashCommands/${folder}/${file}`);
-                client.commands.set(command.data.name, command);
-                client.commandArray.push(command.data.toJSON());
+	client.handleCommands = async (commandFolders, path) => {
+		client.commandArray = [];
+		for (const folder of commandFolders) {
+			const commandFiles = fs.readdirSync(`${path}/SlashCommands/${folder}`).filter((file) => file.endsWith(".js"));
+			for (const file of commandFiles) {
+				const command = require(`../commands/SlashCommands/${folder}/${file}`);
+				client.commands.set(command.data.name, command);
+				client.commandArray.push(command.data.toJSON());
 
-                if (command.name) {
-                    client.commands.set(command.name, command);
-            
-                    if (command.aliases && Array.isArray(command.aliases)) {
-                        command.aliases.forEach((alias) => {
-                            client.aliases.set(alias, command.name);
-                        });
-                    }
-                } else {
-                    continue;
-                }
-            }
-        }
+				if (command.name) {
+					client.commands.set(command.name, command);
 
-        console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Slash commands loaded ${color.purple}(${client.commands.size} commands)${color.reset}`);
+					if (command.aliases && Array.isArray(command.aliases)) {
+						command.aliases.forEach((alias) => {
+							client.aliases.set(alias, command.name);
+						});
+					}
+				} else {
+					continue;
+				}
+			}
+		}
 
-        const rest = new REST({ version: '10' }).setToken(process.env.token);
+		console.log(
+			`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Slash commands loaded ${color.purple}(${client.commands.size} commands)${color.reset}`,
+		);
 
-        (async () => {
-            try {
-                console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.yellow}↻${color.reset} Registering slash commands with Discord...`);
+		const rest = new REST({ version: "10" }).setToken(process.env.token);
 
-                await rest.put(
-                    Routes.applicationCommands(clientId), {
-                        body: client.commandArray
-                    },
-                ).catch((error) => {
-                    console.error(`${color.red}[${getTimestamp()}] [SLASH_COMMANDS] Failed to register commands. Check your clientID matches your bot token:${color.reset}`, error);
-                });
+		(async () => {
+			try {
+				console.log(
+					`${color.blue}[${getTimestamp()}]${color.reset} ${color.yellow}↻${color.reset} Registering slash commands with Discord...`,
+				);
 
-                console.log(`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Slash commands registered with Discord successfully`);
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-    };
+				await rest
+					.put(Routes.applicationCommands(clientId), {
+						body: client.commandArray,
+					})
+					.catch((error) => {
+						console.error(
+							`${color.red}[${getTimestamp()}] [SLASH_COMMANDS] Failed to register commands. Check your clientID matches your bot token:${color.reset}`,
+							error,
+						);
+					});
+
+				console.log(
+					`${color.blue}[${getTimestamp()}]${color.reset} ${color.green}✓${color.reset} Slash commands registered with Discord successfully`,
+				);
+			} catch (error) {
+				console.error(error);
+			}
+		})();
+	};
 };

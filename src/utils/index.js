@@ -12,10 +12,10 @@ const {
 	color,
 	getTimestamp,
 } = require("./logging/logs");
-const { gatewayIntentBits, partials} = require("./intents")
-const { addSuffix } = require("./helpers/addSuffix")
-const { addBadges } = require("./helpers/discordBadges")
-const { getBotStats } = require("./helpers/botStats")
+const { gatewayIntentBits, partials } = require("./intents");
+const { addSuffix } = require("./helpers/addSuffix");
+const { addBadges } = require("./helpers/discordBadges");
+const { getBotStats } = require("./helpers/botStats");
 const { checkDmUsability, checkMessageDmUsability } = require("./commandParams/checkDmUsability");
 const { checkUnderDevelopment, checkMessageUnderDevelopment } = require("./commandParams/checkUnderDevelopment");
 const { SlashCategory, PrefixCategory } = require("./helpers/commandCategorys");
@@ -45,5 +45,5 @@ module.exports = {
 	checkMessageUnderDevelopment,
 	SlashCategory,
 	PrefixCategory,
-	getGuildPrefix
+	getGuildPrefix,
 };

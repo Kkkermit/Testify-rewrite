@@ -1,5 +1,11 @@
 const { EmbedBuilder, Events, PermissionFlagsBits, MessageFlags } = require("discord.js");
-const { color, getTimestamp, checkMessageDmUsability, checkMessageUnderDevelopment, getGuildPrefix } = require("@utils");
+const {
+	color,
+	getTimestamp,
+	checkMessageDmUsability,
+	checkMessageUnderDevelopment,
+	getGuildPrefix,
+} = require("@utils");
 const { prefixSystem } = require("@schemas");
 
 module.exports = {
@@ -12,7 +18,10 @@ module.exports = {
 		const guildPrefixSettings = await prefixSystem.findOne({ Guild: message.guild.id });
 		if (!guildPrefixSettings || !guildPrefixSettings.Enabled) {
 			if (message.content.startsWith(prefix)) {
-				const reply = await message.reply({ content: 'The prefix system is yet to be set-up for this guild.', flags: MessageFlags.Ephemeral });
+				const reply = await message.reply({
+					content: "The prefix system is yet to be set-up for this guild.",
+					flags: MessageFlags.Ephemeral,
+				});
 				setTimeout(async () => {
 					await reply.delete().catch(() => {});
 				}, 2500);
@@ -47,7 +56,7 @@ module.exports = {
 		}
 
 		if (!checkMessageDmUsability(command, message)) return;
-        if (!checkMessageUnderDevelopment(command, message)) return;
+		if (!checkMessageUnderDevelopment(command, message)) return;
 
 		if (!command) return;
 
@@ -56,24 +65,27 @@ module.exports = {
 		}
 
 		if (command.permissions && command.permissions.length) {
-            const missingPerms = command.permissions.filter(perm => {
-                if (!message.member.permissions.has(perm)) {
-                    return true;
-                }
-                return false;
-            }).map(perm => {
-                return Object.keys(PermissionFlagsBits).find(p => 
-                    PermissionFlagsBits[p] === perm
-                ).replace(/_/g, ' ').toLowerCase();
-            });
+			const missingPerms = command.permissions
+				.filter((perm) => {
+					if (!message.member.permissions.has(perm)) {
+						return true;
+					}
+					return false;
+				})
+				.map((perm) => {
+					return Object.keys(PermissionFlagsBits)
+						.find((p) => PermissionFlagsBits[p] === perm)
+						.replace(/_/g, " ")
+						.toLowerCase();
+				});
 
-            if (missingPerms.length > 0) {
-                return message.reply({ 
-                    content: client.config.noPerms(missingPerms),
-                    flags: MessageFlags.Ephemeral,
-                });
-            }
-        }
+			if (missingPerms.length > 0) {
+				return message.reply({
+					content: client.config.noPerms(missingPerms),
+					flags: MessageFlags.Ephemeral,
+				});
+			}
+		}
 
 		try {
 			command.execute(message, client, args);

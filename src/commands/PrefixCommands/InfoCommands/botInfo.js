@@ -4,8 +4,8 @@ const { getBotStats, PrefixCategory } = require("@utils");
 module.exports = {
 	name: "bot-info",
 	aliases: ["bi", "botinfo"],
-    category: PrefixCategory.INFO,
-    usableInDms: true,
+	category: PrefixCategory.INFO,
+	usableInDms: true,
 	async execute(message, client) {
 		const refresh = new ActionRowBuilder().addComponents(
 			new ButtonBuilder().setCustomId("refresh").setLabel("Refresh").setStyle(ButtonStyle.Primary),

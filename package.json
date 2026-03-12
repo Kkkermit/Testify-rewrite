@@ -14,7 +14,9 @@
     "commit": "node -r module-alias/register src/scripts/commitRunner.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\"",
+    "format:check": "prettier --check \"src/**/*.js\" \"tests/**/*.js\""
   },
   "keywords": [],
   "author": "Kkkermit",
@@ -37,7 +39,9 @@
     "eslint": "10.0.2",
     "globals": "17.4.0",
     "husky": "9.1.7",
-    "jest": "30.2.0"
+    "jest": "30.2.0",
+    "lint-staged": "16.3.3",
+    "prettier": "3.8.1"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -49,5 +53,8 @@
     "@functions": "src/functions",
     "@schemas": "src/schemas",
     "@lib": "src/lib"
+  },
+  "lint-staged": {
+    "*.js": "prettier --write"
   }
 }

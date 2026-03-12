@@ -30,6 +30,6 @@ const partials = [
 ];
 
 module.exports = {
-    gatewayIntentBits,
-    partials,
+	gatewayIntentBits,
+	partials,
 };
