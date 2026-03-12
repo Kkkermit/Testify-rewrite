@@ -15,10 +15,6 @@ beforeAll(() => {
 	process.env.devid = OWNER_ID;
 });
 
-// ---------------------------------------------------------------------------
-// checkOwnerOnly — slash commands
-// ---------------------------------------------------------------------------
-
 describe("checkOwnerOnly", () => {
 	let command;
 
@@ -92,10 +88,6 @@ describe("checkOwnerOnly", () => {
 	});
 });
 
-// ---------------------------------------------------------------------------
-// checkMessageOwnerOnly — prefix commands
-// ---------------------------------------------------------------------------
-
 describe("checkMessageOwnerOnly", () => {
 	let command;
 
@@ -156,10 +148,6 @@ describe("checkMessageOwnerOnly", () => {
 		});
 	});
 });
-
-// ---------------------------------------------------------------------------
-// checkDevOnly — slash commands
-// ---------------------------------------------------------------------------
 
 describe("checkDevOnly", () => {
 	let command;
@@ -241,10 +229,6 @@ describe("checkDevOnly", () => {
 		});
 	});
 });
-
-// ---------------------------------------------------------------------------
-// checkMessageDevOnly — prefix commands
-// ---------------------------------------------------------------------------
 
 describe("checkMessageDevOnly", () => {
 	let command;
