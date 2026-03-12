@@ -1,0 +1,128 @@
+name: Nightly — Dependency Scan & Tests
+
+on:
+  schedule:
+    # Runs every day at midnight UTC
+    - cron: '0 0 * * *'
+  # Allow manual triggering from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  # ──────────────────────────────────────────────
+  # Job 1 — Unit Tests
+  # ──────────────────────────────────────────────
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            coverage/
+            junit.xml
+          retention-days: 7
+
+  # ──────────────────────────────────────────────
+  # Job 2 — npm audit (built-in, no account needed)
+  #          Fails if any High or Critical CVEs found
+  # ──────────────────────────────────────────────
+  npm-audit:
+    name: npm audit — Dependency Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        # --audit-level=high fails the job on High or Critical vulnerabilities only
+        run: npm audit --audit-level=high
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm-audit.json
+          retention-days: 7
+
+  # ──────────────────────────────────────────────
+  # Job 3 — Snyk (free tier, deeper CVE analysis
+  #          and opens GitHub Issues automatically)
+  # ──────────────────────────────────────────────
+  snyk:
+    name: Snyk — Dependency Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        with:
+          # Only fail on High or Critical vulnerabilities (severity-threshold)
+          args: --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  # ──────────────────────────────────────────────
+  # Job 4 — Notify on failure
+  # ──────────────────────────────────────────────
+  notify-on-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [unit-tests, npm-audit, snyk]
+    if: failure()
+
+    steps:
+      - name: Send failure notification
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Nightly pipeline failed — ${new Date().toISOString().slice(0, 10)}`,
+              body: [
+                '## Nightly Pipeline Failure',
+                '',
+                `**Date:** ${new Date().toUTCString()}`,
+                `**Run:** [View workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
+                '',
+                '### What to check',
+                '- Review the unit test results in the run artifacts',
+                '- Review the npm audit report artifact for vulnerable dependencies',
+                '- Review any new Snyk vulnerability issues opened on the repository',
+              ].join('\n'),
+              labels: ['bug', 'ci-failure'],
+            });
