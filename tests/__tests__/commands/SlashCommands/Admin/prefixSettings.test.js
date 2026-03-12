@@ -111,7 +111,7 @@ describe('SlashCommand /prefix', () => {
             expect(mockPrefixSystem.findOneAndUpdate).toHaveBeenCalledWith(
                 { Guild: interaction.guild.id },
                 { Prefix: '!' },
-                { upsert: true, new: true }
+                { upsert: true, returnDocument: 'after' }
             );
         });
 
@@ -260,7 +260,7 @@ describe('SlashCommand /prefix', () => {
             expect(mockPrefixSystem.findOneAndUpdate).toHaveBeenCalledWith(
                 { Guild: interaction.guild.id },
                 { Prefix: '>', Enabled: true },
-                { upsert: true, new: true }
+                { upsert: true, returnDocument: 'after' }
             );
         });
 
@@ -270,7 +270,7 @@ describe('SlashCommand /prefix', () => {
             expect(mockPrefixSystem.findOneAndUpdate).toHaveBeenCalledWith(
                 { Guild: interaction.guild.id },
                 { Prefix: client.config.defaultPrefix, Enabled: true },
-                { upsert: true, new: true }
+                { upsert: true, returnDocument: 'after' }
             );
         });
 

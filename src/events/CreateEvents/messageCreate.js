@@ -1,5 +1,6 @@
 const { EmbedBuilder, Events, PermissionFlagsBits, MessageFlags } = require("discord.js");
 const { color, getTimestamp, checkMessageDmUsability, checkMessageUnderDevelopment, getGuildPrefix } = require("@utils");
+const { prefixSystem } = require("@schemas");
 
 module.exports = {
 	name: Events.MessageCreate,
@@ -7,6 +8,17 @@ module.exports = {
 		if (message.author.bot || !message.guild || message.system || message.webhookId) return;
 
 		const prefix = await getGuildPrefix(message.guild.id);
+
+		const guildPrefixSettings = await prefixSystem.findOne({ Guild: message.guild.id });
+		if (!guildPrefixSettings || !guildPrefixSettings.Enabled) {
+			if (message.content.startsWith(prefix)) {
+				const reply = await message.reply({ content: 'The prefix system is yet to be set-up for this guild.', flags: MessageFlags.Ephemeral });
+				setTimeout(async () => {
+					await reply.delete().catch(() => {});
+				}, 2500);
+			}
+			return;
+		}
 
 		if (!message.content.toLowerCase().startsWith(prefix)) {
 			return;

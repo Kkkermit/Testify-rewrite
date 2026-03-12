@@ -39,7 +39,7 @@ module.exports = {
                 await prefixSystem.findOneAndUpdate(
                     { Guild: interaction.guild.id },
                     { Prefix: prefix },
-                    { upsert: true, new: true }
+                    { upsert: true, returnDocument: 'after' }
                 );
 
                 const embed = new EmbedBuilder()
@@ -119,7 +119,7 @@ module.exports = {
                 await prefixSystem.findOneAndUpdate(
                     { Guild: interaction.guild.id },
                     { Prefix: customPrefix, Enabled: true },
-                    { upsert: true, new: true }
+                    { upsert: true, returnDocument: 'after' }
                 );
 
                 const embed3 = new EmbedBuilder()
