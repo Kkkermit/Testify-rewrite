@@ -19,9 +19,14 @@ module.exports = {
 
         const sub = interaction.options.getSubcommand();
 
-        const guildData = await prefixSystem.findOne({ Guild: interaction.guild.id });
+        let guildData;
+        try {
+            guildData = await prefixSystem.findOne({ Guild: interaction.guild.id });
+        } catch (err) {
+            return interaction.reply({ content: `Whoops, something went wrong! Please try again.`, flags: MessageFlags.Ephemeral });
+        }
 
-        if (sub !== 'enable' && sub !== 'disable' && (!guildData || !guildData.Enabled)) {
+        if (sub !== 'enable' && sub !== 'disable' && sub !== 'check' && (!guildData || !guildData.Enabled)) {
             return interaction.reply({ content: "You **cannot** use this command as the prefix system has not yet been enabled. To enable the prefix system run **`prefix enable`**", flags: MessageFlags.Ephemeral });
         }
 
@@ -53,8 +58,7 @@ module.exports = {
 
             case 'check':
             try {
-                const data = await prefixSystem.findOne({ Guild: interaction.guild.id });
-                const currentPrefix = data?.Prefix ?? client.config.defaultPrefix;
+                const currentPrefix = guildData?.Enabled ? guildData.Prefix : client.config.defaultPrefix;
 
                 const embed1 = new EmbedBuilder()
                 .setColor(client.config.embedModHard)

@@ -74,6 +74,15 @@ describe('SlashCommand /prefix', () => {
             const arg = interaction.reply.mock.calls[0][0];
             expect(arg.content).toContain('already **disabled**');
         });
+
+        test('does NOT block "check" subcommand when system is not enabled', async () => {
+            mockPrefixSystem.findOne.mockResolvedValueOnce(null);
+            const interaction = createMockSubcommandInteraction('check');
+            await prefixCommand.execute(interaction, client);
+            const arg = interaction.reply.mock.calls[0][0];
+            expect(arg.embeds).toBeDefined();
+            expect(arg.content).toBeUndefined();
+        });
     });
 
     describe('subcommand: change', () => {
@@ -132,7 +141,7 @@ describe('SlashCommand /prefix', () => {
 
     describe('subcommand: check', () => {
         test('replies with an embed showing the current prefix', async () => {
-            mockPrefixSystem.findOne.mockResolvedValue(enabledDoc);
+            mockPrefixSystem.findOne.mockResolvedValueOnce(enabledDoc);
             const interaction = createMockSubcommandInteraction('check');
             await prefixCommand.execute(interaction, client);
             const arg = interaction.reply.mock.calls[0][0];
@@ -140,10 +149,16 @@ describe('SlashCommand /prefix', () => {
             expect(arg.embeds[0].data.description).toContain('!');
         });
 
-        test('falls back to defaultPrefix when no db record exists', async () => {
-            mockPrefixSystem.findOne
-                .mockResolvedValueOnce(enabledDoc)
-                .mockResolvedValueOnce(null);
+        test('shows defaultPrefix when system has never been set up (no db record)', async () => {
+            mockPrefixSystem.findOne.mockResolvedValueOnce(null);
+            const interaction = createMockSubcommandInteraction('check');
+            await prefixCommand.execute(interaction, client);
+            const embed = interaction.reply.mock.calls[0][0].embeds[0];
+            expect(embed.data.description).toContain(client.config.defaultPrefix);
+        });
+
+        test('shows defaultPrefix when system is disabled', async () => {
+            mockPrefixSystem.findOne.mockResolvedValueOnce(disabledDoc);
             const interaction = createMockSubcommandInteraction('check');
             await prefixCommand.execute(interaction, client);
             const embed = interaction.reply.mock.calls[0][0].embeds[0];
@@ -151,17 +166,21 @@ describe('SlashCommand /prefix', () => {
         });
 
         test('reply is NOT ephemeral (visible to everyone)', async () => {
-            mockPrefixSystem.findOne.mockResolvedValue(enabledDoc);
+            mockPrefixSystem.findOne.mockResolvedValueOnce(enabledDoc);
             const interaction = createMockSubcommandInteraction('check');
             await prefixCommand.execute(interaction, client);
-            const arg = interaction.reply.mock.calls[0][0];
-            expect(arg.flags).toBeUndefined();
+            expect(interaction.reply.mock.calls[0][0].flags).toBeUndefined();
         });
 
-        test('replies with error message when findOne throws on check', async () => {
-            mockPrefixSystem.findOne
-                .mockResolvedValueOnce(enabledDoc)
-                .mockRejectedValueOnce(new Error('db'));
+        test('only calls findOne once (no redundant second query)', async () => {
+            mockPrefixSystem.findOne.mockResolvedValueOnce(enabledDoc);
+            const interaction = createMockSubcommandInteraction('check');
+            await prefixCommand.execute(interaction, client);
+            expect(mockPrefixSystem.findOne).toHaveBeenCalledTimes(1);
+        });
+
+        test('replies with error message when findOne throws', async () => {
+            mockPrefixSystem.findOne.mockRejectedValueOnce(new Error('db'));
             const interaction = createMockSubcommandInteraction('check');
             await prefixCommand.execute(interaction, client);
             expect(interaction.reply.mock.calls[0][0].content).toContain('something went wrong');
