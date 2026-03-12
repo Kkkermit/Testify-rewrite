@@ -10,8 +10,12 @@
 
 // Enable module aliases
 require("module-alias/register");
+
+global.startTime = Date.now();
+
 const { Client, Collection } = require(`discord.js`);
 const fs = require("fs");
+
 const config = require("@config");
 const { color, getTimestamp, gatewayIntentBits, partials } = require("@utils");
 const { checkVersion } = require("@lib");
