@@ -1,5 +1,5 @@
-const { createMockMessage, createMockClient } = require('../../mocks/discordMocks');
-const helpCommand = require('../../../src/commands/PrefixCommands/Community/help.js');
+const { createMockMessage, createMockClient } = require('../../../../mocks/discordMocks.js');
+const helpCommand = require('../../../../../src/commands/PrefixCommands/Community/help.js');
 
 describe('PrefixCommand ?help', () => {
 

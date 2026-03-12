@@ -1,5 +1,5 @@
-const { createMockInteraction, createMockClient } = require('../../mocks/discordMocks');
-const pingCommand = require('../../../src/commands/SlashCommands/Community/ping.js');
+const { createMockInteraction, createMockClient } = require('../../../../mocks/discordMocks.js');
+const pingCommand = require('../../../../../src/commands/SlashCommands/Other/ping.js');
 
 describe('SlashCommand /ping', () => {
 
