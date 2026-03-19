@@ -14,6 +14,7 @@
     "commit": "node -r module-alias/register src/scripts/commitRunner.js",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --verbose=false",
     "prepare": "husky",
     "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\"",
     "format:check": "prettier --check \"src/**/*.js\" \"tests/**/*.js\"",
