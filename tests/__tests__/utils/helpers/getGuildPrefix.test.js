@@ -1,5 +1,5 @@
 const config = require("../../../../src/config");
-const { getGuildPrefix } = require("../../../../src/utils/helpers/getGuildPrefix");
+const { getGuildPrefix } = require("../../../../src/utils/helpers/getGuildPrefix.util");
 
 const mockPrefixSystem = global.mockSchemas.prefixSystem;
 

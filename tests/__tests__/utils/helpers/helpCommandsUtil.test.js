@@ -3,8 +3,8 @@ const {
 	getPrefixCommandsByCategory,
 	createCommandPages,
 	getCategoryEmoji,
-} = require("../../../../src/utils/helpers/helpCommandsUtil");
-const { SlashCategory, PrefixCategory } = require("../../../../src/utils/helpers/commandCategorys");
+} = require("../../../../src/utils/helpers/helpCommands.util");
+const { SlashCategory, PrefixCategory } = require("../../../../src/utils/helpers/commandCategorys.util");
 const {
 	makeSlashCommand,
 	makeSubcommandOption,

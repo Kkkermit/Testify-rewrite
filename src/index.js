@@ -42,7 +42,7 @@ try {
 client.logs = require("@utils");
 client.config = require("@config");
 
-require("./functions/processHandlers")();
+require("./functions/processHandlers.function")();
 
 client.commands = new Collection();
 client.pcommands = new Collection();

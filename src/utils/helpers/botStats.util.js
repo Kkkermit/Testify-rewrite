@@ -1,5 +1,5 @@
 const config = require("@config");
-const { getGuildPrefix } = require("./getGuildPrefix");
+const { getGuildPrefix } = require("./getGuildPrefix.util");
 
 async function getBotStats(client, guildId = null) {
 	let totalSeconds = (client.uptime || 0) / 1000;

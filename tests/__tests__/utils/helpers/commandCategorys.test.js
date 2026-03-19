@@ -1,5 +1,5 @@
 const { expect } = require("@jest/globals");
-const { SlashCategory, PrefixCategory } = require("../../../../src/utils/helpers/commandCategorys");
+const { SlashCategory, PrefixCategory } = require("../../../../src/utils/helpers/commandCategorys.util");
 
 describe("SlashCategory", () => {
 	describe("exports", () => {

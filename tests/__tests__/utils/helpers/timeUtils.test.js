@@ -1,4 +1,4 @@
-const { getTimeBetween, getFormattedTime } = require("../../../../src/utils/helpers/timeUtils");
+const { getTimeBetween, getFormattedTime } = require("../../../../src/utils/helpers/timeHelper.util");
 
 describe("timeUtils", () => {
 	describe("getTimeBetween", () => {

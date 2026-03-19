@@ -1,4 +1,4 @@
-const folderLoader = require("./logging/folderLoader");
+const folderLoader = require("./logging/folderLoader.util");
 const {
 	write,
 	info,
@@ -11,28 +11,28 @@ const {
 	purple,
 	color,
 	getTimestamp,
-} = require("./logging/logs");
-const { gatewayIntentBits, partials } = require("./intents");
-const { addSuffix } = require("./helpers/addSuffix");
-const { addBadges } = require("./helpers/discordBadges");
-const { getBotStats } = require("./helpers/botStats");
-const { checkDmUsability, checkMessageDmUsability } = require("./commandParams/checkDmUsability");
-const { checkUnderDevelopment, checkMessageUnderDevelopment } = require("./commandParams/checkUnderDevelopment");
-const { SlashCategory, PrefixCategory } = require("./helpers/commandCategorys");
-const { getGuildPrefix } = require("./helpers/getGuildPrefix");
+} = require("./logging/logs.util");
+const { gatewayIntentBits, partials } = require("./intents.util");
+const { addSuffix } = require("./helpers/addSuffix.util");
+const { addBadges } = require("./helpers/discordBadges.util");
+const { getBotStats } = require("./helpers/botStats.util");
+const { checkDmUsability, checkMessageDmUsability } = require("./commandParams/checkDmUsability.util");
+const { checkUnderDevelopment, checkMessageUnderDevelopment } = require("./commandParams/checkUnderDevelopment.util");
+const { SlashCategory, PrefixCategory } = require("./helpers/commandCategorys.util");
+const { getGuildPrefix } = require("./helpers/getGuildPrefix.util");
 const {
 	checkOwnerOnly,
 	checkMessageOwnerOnly,
 	checkDevOnly,
 	checkMessageDevOnly,
-} = require("./commandParams/checkOwnerDeveloperCommands");
+} = require("./commandParams/checkOwnerDeveloperCommands.util");
 const {
 	getSlashCommandsByCategory,
 	getPrefixCommandsByCategory,
 	createCommandPages,
 	getCategoryEmoji,
-} = require("./helpers/helpCommandsUtil");
-const { getImages } = require("./helpers/images");
+} = require("./helpers/helpCommands.util");
+const { getImages } = require("./helpers/images.util");
 
 module.exports = {
 	folderLoader,

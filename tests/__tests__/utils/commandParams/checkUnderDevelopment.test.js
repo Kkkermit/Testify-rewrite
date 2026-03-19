@@ -1,7 +1,7 @@
 const {
 	checkUnderDevelopment,
 	checkMessageUnderDevelopment,
-} = require("../../../../src/utils/commandParams/checkUnderDevelopment");
+} = require("../../../../src/utils/commandParams/checkUnderDevelopment.util");
 const { createMockInteraction, createMockMessage } = require("../../../mocks/discordMocks");
 
 describe("checkUnderDevelopment", () => {

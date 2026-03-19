@@ -3,7 +3,7 @@ const {
 	checkMessageOwnerOnly,
 	checkDevOnly,
 	checkMessageDevOnly,
-} = require("../../../../src/utils/commandParams/checkOwnerDeveloperCommands");
+} = require("../../../../src/utils/commandParams/checkOwnerDeveloperCommands.util");
 const { createMockInteraction, createMockMessage } = require("../../../mocks/discordMocks");
 const config = require("../../../../src/config");
 

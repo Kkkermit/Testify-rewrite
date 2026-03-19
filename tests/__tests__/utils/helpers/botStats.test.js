@@ -1,12 +1,12 @@
-const { getBotStats } = require("../../../../src/utils/helpers/botStats");
+const { getBotStats } = require("../../../../src/utils/helpers/botStats.util");
 const config = require("../../../../src/config");
 const { createMockClient } = require("../../../mocks/discordMocks");
 
-jest.mock("../../../../src/utils/helpers/getGuildPrefix", () => ({
+jest.mock("../../../../src/utils/helpers/getGuildPrefix.util", () => ({
 	getGuildPrefix: jest.fn(),
 }));
 
-const { getGuildPrefix } = require("../../../../src/utils/helpers/getGuildPrefix");
+const { getGuildPrefix } = require("../../../../src/utils/helpers/getGuildPrefix.util");
 
 describe("getBotStats", () => {
 	let client;

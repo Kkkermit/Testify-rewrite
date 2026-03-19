@@ -1,5 +1,5 @@
 const { GatewayIntentBits, Partials } = require("discord.js");
-const { gatewayIntentBits, partials } = require("../../../src/utils/intents");
+const { gatewayIntentBits, partials } = require("../../../src/utils/intents.util");
 
 describe("intents.js", () => {
 	describe("gatewayIntentBits", () => {

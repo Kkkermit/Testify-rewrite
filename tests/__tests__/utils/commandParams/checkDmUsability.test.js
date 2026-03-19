@@ -1,4 +1,7 @@
-const { checkDmUsability, checkMessageDmUsability } = require("../../../../src/utils/commandParams/checkDmUsability");
+const {
+	checkDmUsability,
+	checkMessageDmUsability,
+} = require("../../../../src/utils/commandParams/checkDmUsability.util");
 const { createMockInteraction, createMockMessage } = require("../../../mocks/discordMocks");
 
 describe("checkDmUsability", () => {

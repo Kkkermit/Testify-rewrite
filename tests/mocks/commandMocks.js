@@ -1,4 +1,4 @@
-const { SlashCategory, PrefixCategory } = require("../../src/utils/helpers/commandCategorys");
+const { SlashCategory, PrefixCategory } = require("../../src/utils/helpers/commandCategorys.util");
 
 /**
  * Shared command mock factories for unit tests.

@@ -1,4 +1,4 @@
-const { addBadges } = require("../../../../src/utils/helpers/discordBadges");
+const { addBadges } = require("../../../../src/utils/helpers/discordBadges.util");
 
 describe("addBadges", () => {
 	describe("empty input", () => {

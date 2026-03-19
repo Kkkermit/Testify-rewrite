@@ -10,7 +10,7 @@ const {
 	purple,
 	color,
 	getTimestamp,
-} = require("../../../../src/utils/logging/logs");
+} = require("../../../../src/utils/logging/logs.util");
 
 describe("logs.js", () => {
 	beforeEach(() => {

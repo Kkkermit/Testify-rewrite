@@ -1,4 +1,4 @@
-const { SlashCategory, PrefixCategory } = require("./commandCategorys");
+const { SlashCategory, PrefixCategory } = require("./commandCategorys.util");
 
 function getSlashCommandsByCategory(client) {
 	const categories = {};

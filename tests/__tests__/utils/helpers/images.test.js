@@ -1,4 +1,4 @@
-const { getImages } = require("../../../../src/utils/helpers/images");
+const { getImages } = require("../../../../src/utils/helpers/images.util");
 
 describe("getImages", () => {
 	describe("return type", () => {

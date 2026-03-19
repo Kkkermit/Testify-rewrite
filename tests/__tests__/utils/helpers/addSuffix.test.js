@@ -1,4 +1,4 @@
-const { addSuffix } = require("../../../../src/utils/helpers/addSuffix");
+const { addSuffix } = require("../../../../src/utils/helpers/addSuffix.util");
 
 describe("addSuffix", () => {
 	describe("1st, 21st, 31st", () => {

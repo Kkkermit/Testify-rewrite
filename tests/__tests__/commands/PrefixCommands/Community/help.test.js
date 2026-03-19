@@ -1,10 +1,10 @@
-jest.mock("../../../../../src/utils/helpers/getGuildPrefix", () => ({
+jest.mock("../../../../../src/utils/helpers/getGuildPrefix.util", () => ({
 	getGuildPrefix: jest.fn().mockResolvedValue("?"),
 }));
 
 const { createMockMessage } = require("../../../../mocks/discordMocks.js");
 const { makeCommandClient, makeSlashCommand, makePrefixCommand } = require("../../../../mocks/commandMocks.js");
-const { PrefixCategory } = require("../../../../../src/utils/helpers/commandCategorys");
+const { PrefixCategory } = require("../../../../../src/utils/helpers/commandCategorys.util.js");
 const helpCommand = require("../../../../../src/commands/PrefixCommands/Community/help.js");
 
 const slashCommands = [makeSlashCommand()];
