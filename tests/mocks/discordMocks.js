@@ -37,6 +37,7 @@ function createMockInteraction(overrides = {}) {
 			getChannel: jest.fn().mockReturnValue(null),
 			getRole: jest.fn().mockReturnValue(null),
 		},
+		client: {},
 		...overrides,
 	};
 	return interaction;

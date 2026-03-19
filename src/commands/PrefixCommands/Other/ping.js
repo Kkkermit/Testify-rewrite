@@ -3,6 +3,7 @@ const { PrefixCategory } = require("@utils");
 
 module.exports = {
 	name: "ping",
+	description: "Pong!",
 	category: PrefixCategory.OTHER,
 	usableInDms: true,
 	async execute(message, client) {

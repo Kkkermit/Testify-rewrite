@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, MessageFlags } = require("discord.js");
 const { SlashCategory } = require("@utils");
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
 	category: SlashCategory.MISC,
 	data: new SlashCommandBuilder().setName("ping").setDescription(`Replies with pong`),
 	async execute(interaction) {
-		await interaction.reply({ content: "Sent message in channel", ephemeral: true });
+		await interaction.reply({ content: "Sent message in channel", flags: MessageFlags.Ephemeral });
 		await interaction.channel.send({ content: "Pong!" });
 	},
 };

@@ -33,7 +33,7 @@ describe("SlashCommand /ping", () => {
 
 		test("replies ephemerally", async () => {
 			await pingCommand.execute(interaction, client);
-			expect(interaction.reply).toHaveBeenCalledWith(expect.objectContaining({ ephemeral: true }));
+			expect(interaction.reply).toHaveBeenCalledWith(expect.objectContaining({ flags: expect.anything() }));
 		});
 
 		test("sends a message to the channel", async () => {

@@ -4,6 +4,7 @@ const { getBotStats, PrefixCategory } = require("@utils");
 module.exports = {
 	name: "bot-info",
 	aliases: ["bi", "botinfo"],
+	description: "Shows the bot's stats and information",
 	category: PrefixCategory.INFO,
 	usableInDms: true,
 	async execute(message, client) {

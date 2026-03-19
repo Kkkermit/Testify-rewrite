@@ -26,6 +26,13 @@ const {
 	checkDevOnly,
 	checkMessageDevOnly,
 } = require("./commandParams/checkOwnerDeveloperCommands");
+const {
+	getSlashCommandsByCategory,
+	getPrefixCommandsByCategory,
+	createCommandPages,
+	getCategoryEmoji,
+} = require("./helpers/helpCommandsUtil");
+const { getImages } = require("./helpers/images");
 
 module.exports = {
 	folderLoader,
@@ -56,4 +63,9 @@ module.exports = {
 	checkMessageOwnerOnly,
 	checkDevOnly,
 	checkMessageDevOnly,
+	getSlashCommandsByCategory,
+	getPrefixCommandsByCategory,
+	createCommandPages,
+	getCategoryEmoji,
+	getImages,
 };

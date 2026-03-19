@@ -51,7 +51,7 @@ module.exports = {
 						`> The command you tried **does not exist**. \n> To see **all** commands, use \`\`${prefix}help\`\``,
 					);
 
-				return message.reply({ embeds: [embed], ephemeral: true });
+				return message.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 			} catch (error) {
 				client.logs.error(`[PREFIX_ERROR] Error sending 'cannot find prefix' embed.`, error);
 			}
@@ -107,7 +107,7 @@ module.exports = {
 				.setColor("Red")
 				.setDescription(`There was an error while executing this command!\n\`\`\`${error}\`\`\``);
 
-			await message.reply({ embeds: [embed], ephemeral: true });
+			await message.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 		}
 	},
 };

@@ -10,6 +10,7 @@ module.exports = {
 	dev: "Kkermit",
 	devBy: "| Developed by kkermit",
 	developerIds: ["526853643962679323"],
+	botServerInvite: "https://discord.gg/xcMVwAVjSD",
 
 	// Permission Check //
 	noPerms: (missingPerms) => {

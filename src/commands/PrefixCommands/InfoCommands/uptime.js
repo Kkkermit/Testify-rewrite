@@ -4,6 +4,7 @@ const { PrefixCategory } = require("@utils");
 module.exports = {
 	name: "uptime",
 	aliases: ["botuptime"],
+	description: "Shows the bot's current uptime",
 	category: PrefixCategory.INFO,
 	usableInDms: true,
 	async execute(message, client, args) {
