@@ -1,0 +1,27 @@
+# Snyk policy file — https://docs.snyk.io/snyk-cli/test-for-vulnerabilities/the-.snyk-file
+version: v1.25.0
+
+ignore:
+  SNYK-JS-UNDICI-15518064:
+    - '*':
+        reason: >
+          Introduced transitively via discord.js@14.x -> undici@6.21.3.
+          Cannot upgrade undici without a breaking downgrade of discord.js.
+          Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.
+        expires: '2026-09-19T00:00:00.000Z'
+  SNYK-JS-UNDICI-15518068:
+    - '*':
+        reason: >
+          Introduced transitively via discord.js@14.x -> undici@6.21.3.
+          Cannot upgrade undici without a breaking downgrade of discord.js.
+          Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.
+        expires: '2026-09-19T00:00:00.000Z'
+  SNYK-JS-UNDICI-15518070:
+    - '*':
+        reason: >
+          Introduced transitively via discord.js@14.x -> undici@6.21.3.
+          Cannot upgrade undici without a breaking downgrade of discord.js.
+          Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.
+        expires: '2026-09-19T00:00:00.000Z'
+
+patch: {}
