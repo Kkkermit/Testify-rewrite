@@ -1,32 +1,32 @@
 {
-  "1112496": {
-    "active": true,
-    "notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
-    "expiry": 1789776000000
-  },
-  "1114592": {
-    "active": true,
-    "notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
-    "expiry": 1789776000000
-  },
-  "1114594": {
-    "active": true,
-    "notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
-    "expiry": 1789776000000
-  },
-  "1114638": {
-    "active": true,
-    "notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
-    "expiry": 1789776000000
-  },
-  "1114640": {
-    "active": true,
-    "notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
-    "expiry": 1789776000000
-  },
-  "1114642": {
-    "active": true,
-    "notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
-    "expiry": 1789776000000
-  }
+	"1112496": {
+		"active": true,
+		"notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
+		"expiry": 1789776000000
+	},
+	"1114592": {
+		"active": true,
+		"notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
+		"expiry": 1789776000000
+	},
+	"1114594": {
+		"active": true,
+		"notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
+		"expiry": 1789776000000
+	},
+	"1114638": {
+		"active": true,
+		"notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
+		"expiry": 1789776000000
+	},
+	"1114640": {
+		"active": true,
+		"notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
+		"expiry": 1789776000000
+	},
+	"1114642": {
+		"active": true,
+		"notes": "Introduced transitively via discord.js@14.x -> undici@6.21.3. Cannot upgrade undici without a breaking downgrade of discord.js. Fixed in undici@6.24.0 — re-evaluate when discord.js ships a compatible release.",
+		"expiry": 1789776000000
+	}
 }

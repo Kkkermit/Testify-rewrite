@@ -89,7 +89,6 @@ module.exports = {
 						.addOptions(categoryOptions),
 				);
 
-				// Create button to switch to prefix command help
 				const switchToPrefixRow = new ActionRowBuilder().addComponents(
 					new ButtonBuilder()
 						.setCustomId("switch_to_prefix_help")
