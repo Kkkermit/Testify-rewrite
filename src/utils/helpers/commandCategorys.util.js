@@ -17,6 +17,7 @@ const SlashCategory = Object.freeze({
 	INFO: "InfoCommands",
 	LEVEL_AND_ECONOMY: "LevelAndEconomy",
 	LEVEL_SYSTEM: "LevelSystem",
+	MODERATION: "ModerationCommands",
 	MINI_GAMES: "MiniGames",
 	MISC: "Misc",
 	OWNER: "Owner",

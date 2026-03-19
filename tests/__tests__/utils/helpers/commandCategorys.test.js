@@ -35,6 +35,7 @@ describe("SlashCategory", () => {
 			expect(SlashCategory).toHaveProperty("INFO");
 			expect(SlashCategory).toHaveProperty("LEVEL_AND_ECONOMY");
 			expect(SlashCategory).toHaveProperty("LEVEL_SYSTEM");
+			expect(SlashCategory).toHaveProperty("MODERATION");
 			expect(SlashCategory).toHaveProperty("MINI_GAMES");
 			expect(SlashCategory).toHaveProperty("MISC");
 			expect(SlashCategory).toHaveProperty("OWNER");
@@ -55,6 +56,7 @@ describe("SlashCategory", () => {
 				"INFO",
 				"LEVEL_AND_ECONOMY",
 				"LEVEL_SYSTEM",
+				"MODERATION",
 				"MINI_GAMES",
 				"MISC",
 				"OWNER",
@@ -107,6 +109,10 @@ describe("SlashCategory", () => {
 
 		test('LEVEL_SYSTEM resolves to "LevelSystem"', () => {
 			expect(SlashCategory.LEVEL_SYSTEM).toBe("LevelSystem");
+		});
+
+		test('MODERATION resolves to "ModerationCommands"', () => {
+			expect(SlashCategory.MODERATION).toBe("ModerationCommands");
 		});
 
 		test('MINI_GAMES resolves to "MiniGames"', () => {
