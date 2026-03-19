@@ -33,6 +33,7 @@ const {
 	getCategoryEmoji,
 } = require("./helpers/helpCommands.util");
 const { getImages } = require("./helpers/images.util");
+const { filter, filterWords, filterSet, isFiltered, containsFilteredWord } = require("./helpers/filter.util");
 
 module.exports = {
 	folderLoader,
@@ -68,4 +69,9 @@ module.exports = {
 	createCommandPages,
 	getCategoryEmoji,
 	getImages,
+	filter,
+	filterWords,
+	filterSet,
+	isFiltered,
+	containsFilteredWord,
 };

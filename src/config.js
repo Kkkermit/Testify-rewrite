@@ -22,6 +22,7 @@ module.exports = {
 
 	// Embed Colors //
 	embedColor: "Blurple",
+	embedCommunity: "Purple",
 	embedModHard: "Red",
 
 	// Logging Channels //
