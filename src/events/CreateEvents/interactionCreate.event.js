@@ -6,12 +6,15 @@ const {
 	checkUnderDevelopment,
 	checkOwnerOnly,
 	checkDevOnly,
+	checkBlacklistSlash,
 } = require("@utils");
 
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction, client) {
 		if (!interaction.isCommand()) return;
+
+		if (!(await checkBlacklistSlash(interaction, client))) return;
 
 		const command = client.commands.get(interaction.commandName);
 

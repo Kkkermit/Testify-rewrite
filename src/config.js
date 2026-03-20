@@ -24,6 +24,7 @@ module.exports = {
 	embedColor: "Blurple",
 	embedCommunity: "Purple",
 	embedModHard: "Red",
+	embedDev: "Orange",
 
 	// Logging Channels //
 	slashCommandLoggingChannel: "1129094438669520956",

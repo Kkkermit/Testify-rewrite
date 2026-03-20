@@ -34,6 +34,7 @@ const {
 } = require("./helpers/helpCommands.util");
 const { getImages } = require("./helpers/images.util");
 const { filter, filterWords, filterSet, isFiltered, containsFilteredWord } = require("./helpers/filter.util");
+const { checkBlacklistSlash, checkBlacklistPrefix } = require("./commandParams/checkBlacklist.util");
 
 module.exports = {
 	folderLoader,
@@ -74,4 +75,6 @@ module.exports = {
 	filterSet,
 	isFiltered,
 	containsFilteredWord,
+	checkBlacklistSlash,
+	checkBlacklistPrefix,
 };

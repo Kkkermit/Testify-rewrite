@@ -7,6 +7,7 @@ const {
 	getGuildPrefix,
 	checkMessageOwnerOnly,
 	checkMessageDevOnly,
+	checkBlacklistPrefix,
 } = require("@utils");
 const { prefixSystem } = require("@schemas");
 
@@ -14,6 +15,8 @@ module.exports = {
 	name: Events.MessageCreate,
 	async execute(message, client) {
 		if (message.author.bot || !message.guild || message.system || message.webhookId) return;
+
+		if (!(await checkBlacklistPrefix(message, client))) return;
 
 		const prefix = await getGuildPrefix(message.guild.id);
 
