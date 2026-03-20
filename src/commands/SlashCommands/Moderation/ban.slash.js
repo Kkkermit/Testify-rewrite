@@ -35,7 +35,7 @@ module.exports = {
 			.addFields({ name: "User", value: `> ${userID.tag}`, inline: true })
 			.addFields({ name: "Reason", value: `> ${reason}`, inline: true })
 			.setTimestamp()
-			.setThumbnail(client.user.avatarURL())
+			.setThumbnail(userID.avatarURL())
 			.setFooter({ text: `Someone got struck by the ban hammer` });
 
 		if (userID.id === client.user.id)

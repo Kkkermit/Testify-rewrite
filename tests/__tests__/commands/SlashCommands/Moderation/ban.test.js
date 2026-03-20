@@ -4,6 +4,7 @@ const banCommand = require("../../../../../src/commands/SlashCommands/Moderation
 const BANNED_USER = {
 	id: "222222222",
 	tag: "BannedUser#0001",
+	avatarURL: jest.fn().mockReturnValue("https://example.com/banned-avatar.png"),
 	send: jest.fn().mockResolvedValue({}),
 };
 
@@ -13,6 +14,7 @@ describe("SlashCommand /ban", () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		BANNED_USER.avatarURL = jest.fn().mockReturnValue("https://example.com/banned-avatar.png");
 		BANNED_USER.send = jest.fn().mockResolvedValue({});
 		interaction = createMockInteraction({
 			user: { id: "123456789", tag: "Moderator#0001", username: "Moderator" },
@@ -133,7 +135,12 @@ describe("SlashCommand /ban", () => {
 		test("replies ephemerally when user tries to ban the bot", async () => {
 			interaction.options.getUser = jest
 				.fn()
-				.mockReturnValue({ id: client.user.id, tag: "Testify#0001", send: jest.fn() });
+				.mockReturnValue({
+					id: client.user.id,
+					tag: "Testify#0001",
+					avatarURL: jest.fn().mockReturnValue(null),
+					send: jest.fn(),
+				});
 			await banCommand.execute(interaction, client);
 			expect(interaction.reply).toHaveBeenCalledTimes(1);
 			const replyArgs = interaction.reply.mock.calls[0][0];
@@ -146,7 +153,12 @@ describe("SlashCommand /ban", () => {
 			interaction.guild.fetch = jest.fn().mockResolvedValue(fetchedGuild);
 			interaction.options.getUser = jest
 				.fn()
-				.mockReturnValue({ id: client.user.id, tag: "Testify#0001", send: jest.fn() });
+				.mockReturnValue({
+					id: client.user.id,
+					tag: "Testify#0001",
+					avatarURL: jest.fn().mockReturnValue(null),
+					send: jest.fn(),
+				});
 			await banCommand.execute(interaction, client);
 			expect(fetchedGuild.members.ban).not.toHaveBeenCalled();
 		});
