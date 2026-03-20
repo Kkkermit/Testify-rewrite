@@ -1,5 +1,5 @@
 const { createMockMessage, createMockClient } = require("../../../../mocks/discordMocks.js");
-const banCommand = require("../../../../../src/commands/PrefixCommands/Moderation/ban.js");
+const banCommand = require("../../../../../src/commands/PrefixCommands/Moderation/ban.prefix.js");
 const { PermissionFlagsBits } = require("discord.js");
 
 const BANNED_MEMBER = {

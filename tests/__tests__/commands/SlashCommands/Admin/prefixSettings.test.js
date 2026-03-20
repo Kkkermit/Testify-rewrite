@@ -1,5 +1,5 @@
 const { createMockClient, createMockSubcommandInteraction } = require("../../../../mocks/discordMocks.js");
-const prefixCommand = require("../../../../../src/commands/SlashCommands/Admin/prefixSettings.js");
+const prefixCommand = require("../../../../../src/commands/SlashCommands/Admin/prefixSettings.slash.js");
 
 const mockPrefixSystem = global.mockSchemas.prefixSystem;
 

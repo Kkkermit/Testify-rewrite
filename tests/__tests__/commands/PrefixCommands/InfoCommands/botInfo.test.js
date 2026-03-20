@@ -4,7 +4,7 @@ jest.mock("../../../../../src/schemas", () => ({
 	},
 }));
 
-const botInfo = require("../../../../../src/commands/PrefixCommands/InfoCommands/botInfo");
+const botInfo = require("../../../../../src/commands/PrefixCommands/InfoCommands/botInfo.prefix");
 const { createMockMessage, createMockClient } = require("../../../../mocks/discordMocks");
 
 describe("PrefixCommand ?bot-info", () => {

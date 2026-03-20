@@ -1,5 +1,5 @@
 const { createMockInteraction, createMockClient } = require("../../../../mocks/discordMocks.js");
-const testCommand = require("../../../../../src/commands/SlashCommands/Community/test.js");
+const testCommand = require("../../../../../src/commands/SlashCommands/Community/test.slash.js");
 
 describe("SlashCommand /test", () => {
 	let interaction;

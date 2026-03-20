@@ -1,5 +1,5 @@
 const { createMockMessage, createMockClient } = require("../../../../mocks/discordMocks.js");
-const pingCommand = require("../../../../../src/commands/PrefixCommands/Other/ping.js");
+const pingCommand = require("../../../../../src/commands/PrefixCommands/Other/ping.prefix.js");
 
 describe("PrefixCommand ?ping", () => {
 	let message;

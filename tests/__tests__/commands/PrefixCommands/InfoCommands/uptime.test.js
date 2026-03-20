@@ -1,5 +1,5 @@
 const { createMockMessage, createMockClient } = require("../../../../mocks/discordMocks.js");
-const uptimeCommand = require("../../../../../src/commands/PrefixCommands/InfoCommands/uptime.js");
+const uptimeCommand = require("../../../../../src/commands/PrefixCommands/InfoCommands/uptime.prefix.js");
 
 describe("PrefixCommand ?uptime", () => {
 	let message;

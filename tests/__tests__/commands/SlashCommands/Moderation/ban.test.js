@@ -1,5 +1,5 @@
 const { createMockInteraction, createMockClient } = require("../../../../mocks/discordMocks.js");
-const banCommand = require("../../../../../src/commands/SlashCommands/Moderation/ban.js");
+const banCommand = require("../../../../../src/commands/SlashCommands/Moderation/ban.slash.js");
 
 const BANNED_USER = {
 	id: "222222222",

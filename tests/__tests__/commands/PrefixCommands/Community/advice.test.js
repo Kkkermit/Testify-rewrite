@@ -1,5 +1,5 @@
 const { createMockMessage, createMockClient } = require("../../../../mocks/discordMocks.js");
-const adviceCommand = require("../../../../../src/commands/PrefixCommands/Community/advice.js");
+const adviceCommand = require("../../../../../src/commands/PrefixCommands/Community/advice.prefix.js");
 
 const mockFetch = jest.fn();
 global.fetch = mockFetch;

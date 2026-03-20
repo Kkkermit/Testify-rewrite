@@ -1,7 +1,7 @@
 const { createMockInteraction, createMockClient } = require("../../../../mocks/discordMocks");
 const { MessageFlags } = require("discord.js");
 
-const adviceCommand = require("../../../../../src/commands/SlashCommands/Community/advice");
+const adviceCommand = require("../../../../../src/commands/SlashCommands/Community/advice.slash");
 
 const mockAdviceResponse = (advice = "Take it one day at a time.") => {
 	global.fetch = jest.fn().mockResolvedValue({
